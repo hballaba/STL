@@ -4,84 +4,146 @@
 
 # include <iostream>
 # include <string>
+# include <iterator>
+# include "../iterator.hpp"
+# include <stdio.h>
+
 
 
 //limite_max /sizof(T);
 
 namespace ft {
 
-	template <typename T>
+
+	template< class T, class Alloc = std::allocator<T> >
 	class vector {
+
+		template<class Other>
+		struct rebind {typedef std::allocator<Other> other;};
+	public:
+		typedef 	T value_type;
+		typedef 	Alloc allocator_type;
+		typedef 	typename allocator_type::reference 	reference;
+		typedef 	typename allocator_type::const_reference const_reference;
+		typedef 	typename allocator_type::pointer pointer;
+		typedef 	typename allocator_type::const_pointer const_pointer;
+		typedef 	ft::myIterator<value_type> iterator;
+		//typedef 	my_const_iterator<value_type> const_iterator;
+		//typedef reverse_iterator<iterator> reverse_iterator;
+		//typedef reverse_iterator<const_iterator> const_reverse_iterator;
+		typedef ptrdiff_t difference_type;
+		typedef size_t size_type;
+		typedef std::allocator<T> type_alloc;
+
+
 		private:
-			T *_array;
+			value_type *_array;
 			size_t _size;
 			size_t _capacity;
+			allocator_type _alloc;
+			//type_alloc alloc;
+
 		
 		public:
-			vector() : _array(nullptr), _size(0), _capacity(0) { }
 
-			vector(size_t const size){
-				T t;
-				_array = new T[size];
-				for(int i = 0; i < size -1; i++)
-					_array[i] = t;
-				_size = size;
-				_capacity = size;
-			}
+		explicit vector (const allocator_type& alloc = allocator_type()) : _alloc(alloc), _size(0), _capacity(0) { }
+
+		explicit vector (size_type n, const value_type& val = value_type(),
+						 const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
+//				value_type t;
+				_array = _alloc.allocate(n);
+//				for(int i = 0; i < size -1; i++)
+//					alloc.construct(_array + i, t);
+				_size = n;
+				_capacity = n;
+		}
+
+//		template <class InputIterator>
+//		vector (InputIterator first, InputIterator last,
+//				const allocator_type& alloc = allocator_type());
 
 			~vector() {
-				delete [] _array;
+//				for (int i = 0; i < _size; i++) {
+//					alloc.destroy(_array + i);
+//				}
+				if (_capacity > 0) {
+					_alloc.deallocate(_array, _capacity);
+				}
+
+
 			}
 
 			vector(vector const & toCopy) {
-				if (toCopy._capacity > this->_capacity) {
-					delete [] this->_array;
-					this->_array = new T[toCopy._capacity];
-				}
-				for(int i = 0; i < toCopy._capacity; i++)
-					this->_array[i] = toCopy._array[i];
+
+				this->_alloc = toCopy._alloc;
+				this->_array = this->_alloc.allocate(toCopy._capacity);
+				for(int i = 0; i < toCopy._size; i++)
+				 	this->_alloc.construct(this->_array + i, toCopy._array[i]);
+					//this->_array[i] = toCopy._array[i];
 				this->_size = toCopy._size;
 				this->_capacity = toCopy._capacity;
+				//this->alloc = toCopy.alloc;
 			}
 
 			vector & operator = (vector const & toCopy) {
-				if (toCopy._capacity > this->_capacity) {
-					delete [] this->_array;
-					this->_array = new T[toCopy._capacity];
+				if (toCopy._capacity != this->_capacity) {
+					for (int i = 0; i < this->_size; i++) {
+						this->_alloc.destroy(this->_array + i);
+					}
+					if (this->_capacity > 0) {
+						std::cerr << "tyt1\n";
+						this->_alloc.deallocate(this->_array, this->_capacity);
+					}
+					this->_array = _alloc.allocate(toCopy._capacity);
 				}
-				for(int i = 0; i < toCopy._capacity; i++)
-					this->_array[i] = toCopy._array[i];
+				for(int i = 0; i < toCopy._size; i++)
+					this->_alloc.construct(this->_array + i, toCopy._array[i]);
+					//this->_array[i] = toCopy._array[i];
 				this->_size = toCopy._size;
-				this->_capacity = toCopy._capacity;		
+				this->_capacity = toCopy._capacity;
+				//this->alloc = toCopy.alloc;
+				return *this;
 			}
 
 			
 
 			//**********	Modifiers **********
-			void	push_back(T const & element) {
-				if (_capacity > _size) {  //уже выделена память
-					_array[_size - 1] = element;
-					_size++;
-				}
-				else if (_size != 0) {  // надо домалочить
-					T *tmp = _array;
-					_array = new T[++_size + 1];
-					for (int i = 0; i < _size - 1; i++) {
-						_array[i] = tmp[i];
-						//std::cout << "in " << _array[i];
-					}
-					//std::cout << std::endl;
-					_array[_size - 1] = element;
-					delete [] tmp;
-					tmp = nullptr;
-					_capacity++;
-				}
-				else {			// новый вектор
-					_array = new T[++_size + 1];
-					_array[_size - 1] = element;
-					_capacity++;
-				}
+
+		void	push_back(value_type const & element) {
+			if (_capacity > _size) {  //уже выделена памятm
+				_alloc.construct(_array + _size, element);
+				//_array[_size] = element;
+				_size++;
 			}
+			else if (_capacity > 0) {  // надо домалочить
+				value_type *tmp;// = _array;
+				tmp = _alloc.allocate(_capacity * 2);
+
+				_alloc.construct(tmp + (_size),  element);
+				//tmp[_size] = element;
+				for (int i = 0; i < _size; i++) {
+					//tmp[i] = _array[i];
+					_alloc.construct(tmp + i, _array[i]);
+					//std::cout << "in " << _array[i];
+				}
+				//_array = tmp;
+				for (int i = 0; i < _size; i++)
+					_alloc.destroy(_array + i);
+				//printf("126= %p\n", _array);
+				_alloc.deallocate(_array, _capacity);
+				//printf("126= %p\n", _array);
+				_capacity = _capacity * 2;
+				_array = tmp;
+				_size++;
+			}
+			else {			// новый вектор
+				this->_array = this->_alloc.allocate(1);
+				//this->_array[0] = element;
+				this->_alloc.construct(this->_array, element); // BAGGGGG!!!!
+				this->_capacity ++;
+				this->_size++;
+			}
+		}
 			
 			void	clear() {
 				delete [] _array;
@@ -89,14 +151,14 @@ namespace ft {
 				_size = 0;
 				_capacity = 0;
 			}
-			
+
 			void	assign(size_t n, T const & element) {
-				if (_capacity < n) {			
+				if (_capacity < n) {
 					delete [] _array;
 					_array = new T[n];
 					_capacity = n;
 				}
-				for(int i = 0; i < n; i++) 
+				for(int i = 0; i < n; i++)
 					_array[i] = element;
 				_size = n;
 			}
@@ -106,24 +168,24 @@ namespace ft {
 					_array[--_size] = 0;
 			}
 
-			typedef T* iterator;
-			
+			//typedef T* iterator;
+
 			iterator	insert(iterator pos, T const & element) {
-				T* tmp = _array;
+				value_type * tmp = _array;
 				int num;
 				for (num = 0; num < _size; num++) {
 					if (pos == &_array[num])
 						break ;
 				}
 
-				if (_size == _capacity) 
+				if (_size == _capacity)
 					_array = new T[_size+ 1];
 				_size++;
 				int j = 0;
 				for (int i = 0; i < _size; i++) {
 						if(i == num)
 							_array[i] = element;
-						else 
+						else
 							_array[i] = tmp[j++];
 
 				}
@@ -134,7 +196,7 @@ namespace ft {
 
 				return (&_array[num]);
 			}
-			
+
 
 			void		insert(iterator pos, size_t n, T const & element)
 			{
@@ -145,7 +207,7 @@ namespace ft {
 						break ;
 				}
 
-				if (_size + n >= _capacity) 
+				if (_size + n >= _capacity)
 					_array = new T[_size+ n];
 				//_size ++;
 				int j = 0;
@@ -156,7 +218,7 @@ namespace ft {
 								//_size++;
 							}
 						}
-						else 
+						else
 							_array[i] = tmp[j++];
 
 				}
@@ -185,7 +247,7 @@ namespace ft {
 					if (start == finish)
 						break ;
 				}
-				if (_size + num2 >= _capacity) 
+				if (_size + num2 >= _capacity)
 					_array = new T[_size+ num2];
 				int j = 0;
 				for (int i = 0; i < _size + num2; i++) {
@@ -277,14 +339,14 @@ namespace ft {
 				ft_copy(*tmp, *this);
 				ft_copy(*this, toCopy);
 				ft_copy(toCopy, *tmp);
-				
+
 				delete tmp;
-		
-				
+
+
 			}
 
-			
-			//**********	Capacity **********
+
+//			//**********	Capacity **********
 			size_t	size() const {
 				return _size;
 			}
@@ -299,10 +361,10 @@ namespace ft {
 				return true;
 			}
 
-			size_t max_size() const {
-				
-				return GetTotalAvailableMemory() /sizeof(vector<T>);
-			}
+//			size_t max_size() const {
+//
+//				return GetTotalAvailableMemory() /sizeof(vector<T>);
+//			}
 
 			void	resize(size_t size) {
 				T *tmp;
@@ -315,7 +377,7 @@ namespace ft {
 							tmp[i] = 0; //t посмотреть с чарами и тд
 					}
 					delete [] _array;
-					_array = tmp;		
+					_array = tmp;
 					_size = size;
 					_capacity = size;
 				}
@@ -345,7 +407,7 @@ namespace ft {
 							tmp[i] = tt; //t посмотреть с чарами и тд
 					}
 					delete [] _array;
-					_array = tmp;		
+					_array = tmp;
 					_size = size;
 					_capacity = size;
 				}
@@ -363,7 +425,7 @@ namespace ft {
 					}
 				}
 			}
-			
+
 			void	reserve (size_t n) {
 				if (n > _capacity) {
 					T *tmp = new T[n];
@@ -379,44 +441,49 @@ namespace ft {
 					_capacity = n;
 				}
 			}
-		
-			
+
+
 			//**********	Iterators *********
 
+
 			//typedef T* iterator;
-			
-			
-			vector<T>::iterator begin() {
+
+
+			value_type * begin() {
 				return (_array);
 			}
 
-			vector<T>::iterator end() {
+			value_type const * cbegin() {
+				return (_array);
+			}
+
+			value_type *end() {
 				return ((_array + _size));
 			}
-
-				
-			typedef T* revers_iterator;
-			vector<T>::iterator rbegin() {
-				return (_array + _size - 1);
-			}
-
-			vector<T>::iterator rend() {
-				return (_array - 1);
-			}
+//
+//
+//			typedef T* revers_iterator;
+//			vector<T>::iterator rbegin() {
+//				return (_array + _size - 1);
+//			}
+//
+//			vector<T>::iterator rend() {
+//				return (_array - 1);
+//			}
 
 			//**********	Element access *********
-			
+
 			T & operator [] (const unsigned int index) const {
 				return _array[index];
 			}
-			
+
 			T at(const size_t index) {
 				if (_size >= index + 1)
 					return (_array[index]);
 				else
 					throw "vector";
-			} 
-			
+			}
+
 			T front() {
 				T t = 0;
 				if(_size > 0)
@@ -432,7 +499,7 @@ namespace ft {
 			}
 
 
-			
+
 				
 	};
 }
