@@ -28,7 +28,7 @@ namespace ft {
 		typedef 	typename allocator_type::pointer pointer;
 		typedef 	typename allocator_type::const_pointer const_pointer;
 		typedef 	ft::myIterator<value_type> iterator;
-		//typedef 	my_const_iterator<value_type> const_iterator;
+		typedef 	ft::constMyIterator<value_type> const_iterator;
 		//typedef reverse_iterator<iterator> reverse_iterator;
 		//typedef reverse_iterator<const_iterator> const_reverse_iterator;
 		typedef ptrdiff_t difference_type;
@@ -449,15 +449,19 @@ namespace ft {
 			//typedef T* iterator;
 
 
-			value_type * begin() {
+			iterator begin() {
 				return (_array);
 			}
 
-			value_type const * cbegin() {
+			const_iterator cbegin() const noexcept{
 				return (_array);
 			}
 
-			value_type *end() {
+			iterator end() {
+				return ((_array + _size));
+			}
+
+			const_iterator cend() const  noexcept{
 				return ((_array + _size));
 			}
 //

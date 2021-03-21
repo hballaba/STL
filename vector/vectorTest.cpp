@@ -23,7 +23,7 @@ int     main() {
 			std::cout << "   capacity = " << myVector3.capacity() << "\n";
 			//std::cout << "Range constructor, size = " << myVector3.size();
 			
-			std::cout << Y"\nOriginal constructor\n"D;
+			std::cout << Y"\nOriginal constructor\n";
 			std::vector<int> original;
 			std::cout << "Default construct, size = " << original.size();
 			std::cout << "   capacity = " << original.capacity() << "\n";
@@ -66,16 +66,26 @@ int     main() {
 				myVector.push_back(i);
 			myIT = myVector.begin();
 			myITend = myVector.end();
-//			std::cout << "iterator begin = " << *myIT << std::endl;
-//			std::cout << "iterator end = " << *myITend << std::endl;
-			//std::cout << "iterator end - 1 = " << *(myITend - 1) << std::endl;
 			while(myIT != myITend ) {
-				std::cout << *myIT << "\n";
+				std::cout << "myIT = " << *myIT << "\n";
 				myIT++;
 			}
-//			ft::vector<int>::const_iterator  myIT;
-//			ft::vector<int>::const_iterator  myITend;
-//			myIT = myVector.cbegin();
+			myIT-=4;
+			std::cout << "myIT_-4 = " << myIT[0] << "\n";
+			myIT+=2;
+			std::cout << "myIT_+2 = " << myIT[0] << "\n";
+			
+			
+			ft::vector<int>::const_iterator  myITConst;
+			ft::vector<int>::const_iterator  myITendConst;
+			myITConst = myVector.cbegin();
+			myITendConst = myVector.cend();
+			myITendConst--;
+			while(myITConst != myITendConst ) {
+				std::cout << "myITConst = " << *myITendConst << "\n";
+				--myITendConst;
+			}
+
 
 			std::cout <<Y "Original iterator\n" D;
 
@@ -86,23 +96,28 @@ int     main() {
 				originalVector.push_back(i);
 			originalIT = originalVector.begin();
 			originalITend = originalVector.end();
-//			std::cout << "iterator begin = " << *originalIT << std::endl;
-//			std::cout << "iterator end = " << *originalITend << std::endl;
-//			std::cout << "iterator end - 1 = " << *(originalITend - 1) << std::endl;
 			while(originalIT != originalITend ) {
-				std::cout << *originalIT << "\n";
+				std::cout << "OriginalIT = " << *originalIT << "\n";
 				originalIT++;
 			}
+				originalIT-=4;
+				std::cout << "OriginalIT_-4 = " << originalIT[0] << "\n";
+				originalIT+=2;
+				std::cout << "OriginalIT_+2 = " << originalIT[0] << "\n";
+			
 
 			std::vector<int>::const_iterator  constOriginalIT;
 			std::vector<int>::const_iterator  constOriginalITend;
 			constOriginalIT = originalVector.cbegin();
 			constOriginalITend = originalVector.end();
+			constOriginalITend--;
 			while(constOriginalIT != constOriginalITend ) {
-				std::cout << *constOriginalIT << "\n";
-				constOriginalIT++;
+				std::cout << "Const = " << *constOriginalITend << "\n";
+				--constOriginalITend;
 			}
 		}
+
+
 				
 
 
