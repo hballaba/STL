@@ -63,13 +63,12 @@ namespace ft {
 //				const allocator_type& alloc = allocator_type());
 
 			~vector() {
-//				for (int i = 0; i < _size; i++) {
-//					alloc.destroy(_array + i);
-//				}
+				for (int i = 0; i < _size; i++) {
+					_alloc.destroy(_array + i);
+				}
 				if (_capacity > 0) {
 					_alloc.deallocate(_array, _capacity);
 				}
-
 
 			}
 
@@ -361,82 +360,55 @@ namespace ft {
 				return true;
 			}
 
-//			size_t max_size() const {
-//
-//				return GetTotalAvailableMemory() /sizeof(vector<T>);
-//			}
+			size_t max_size() const { return allocator_type().max_size(); }
 
-			void	resize(size_t size) {
-				T *tmp;
+			void	resize(size_t size, value_type val = value_type()) {
 				if (size > _capacity) {
-					tmp = new T[size];
+					size_t cap;
+					if (size < _capacity * 2)
+						cap = _capacity * 2;
+					else
+						cap = size;
+					value_type *tmp = _alloc.allocate(cap);
+
 					for (int i = 0; i < size; i++) {
 						if (i < _size)
-							tmp[i] = _array[i];
+							_alloc.construct(tmp + i, _array[i]);
 						else
-							tmp[i] = 0; //t посмотреть с чарами и тд
+							_alloc.construct(tmp + i, val);
 					}
-					delete [] _array;
+					for (int i = 0; i < _size; i++)
+						_alloc.destroy(_array + i);
+					_alloc.deallocate(_array, _capacity);
 					_array = tmp;
 					_size = size;
-					_capacity = size;
+					_capacity = cap;
 				}
 				else if (size > _size) {
 					for (int i = 0; i < size; i++) {
-						if (i > _size)
-							_array[i] = 0;
+					if (i >= _size)
+							_alloc.construct(_array + i, val);
 					}
 					_size = size;
 				}
 				else {
-					for (int i = 0; i < size; i++) {
-						if (i > _size)
-							_array[i] = 0;
-					}
-				}
-			}
-
-			void	resize(size_t size, T const & tt) {
-				T *tmp;
-				if (size > _capacity) {
-					tmp = new T[size];
-					for (int i = 0; i < size; i++) {
-						if (i < _size)
-							tmp[i] = _array[i];
-						else
-							tmp[i] = tt; //t посмотреть с чарами и тд
-					}
-					delete [] _array;
-					_array = tmp;
 					_size = size;
-					_capacity = size;
-				}
-				else if (size > _size) {
-					for (int i = 0; i < size; i++) {
-						if (i > _size)
-							_array[i] = tt;
 					}
-					_size = size;
-				}
-				else {
-					for (int i = 0; i < size; i++) {
-						if (i > _size)
-							_array[i] = tt;
-					}
-				}
 			}
 
 			void	reserve (size_t n) {
 				if (n > _capacity) {
-					T *tmp = new T[n];
+					T *tmp = _alloc.allocate(n);
 					T t;
 					for (int i = 0; i < n; i++) {
 						if (i < _size)
-							tmp[i] = _array[i];
+							_alloc.construct(tmp + i, _array[i]);
 						else
 							tmp[i] = 0; //t посмотреть с чарами и тд
 					}
-					delete [] _array;
+					for (int i = 0; i < _size; i++)
+						_alloc.destroy(_array + i);
+					_alloc.deallocate(_array, _capacity);
 					_array = tmp;
 					_capacity = n;
 				}
