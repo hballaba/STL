@@ -189,6 +189,9 @@ namespace ft {
 
 			/*************   Revers Iterator   *************/
 
+
+
+
 	template <class T>
 
 	//template </*class Category, */class T, class Distance = ptrdiff_t,	class Pointer = T*, class Reference = T&>
@@ -226,13 +229,13 @@ namespace ft {
 		reversMyIterator& operator ++ () {--p; return (*this); }
 		reversMyIterator operator ++ (int) {
 			reversMyIterator temp(*this);
-			operator --();
+			operator ++();
 			return temp;
 		}
 		reversMyIterator& operator -- () {++p; return (*this); }
 		reversMyIterator operator --(int) {
 			reversMyIterator temp(*this);
-			operator +();
+			operator -- ();
 			return temp;
 		}
 		reversMyIterator& operator +=(int n) {
@@ -276,7 +279,11 @@ namespace ft {
 		const value_type & operator [] (int n) const { return (*(*this + n)); }
 	};
 
+	
+	
 	/*************   Revers Const Iterator   *************/
+
+
 
 	template <class T>
 
