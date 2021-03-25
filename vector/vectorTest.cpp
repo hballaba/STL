@@ -20,13 +20,13 @@ int     main() {
 			std::cout << "Construct with n elements, size = " << myVector2.size();
 			std::cout << "   capacity = " << myVector2.capacity() << "\n";
 			myVector2.push_back(5);
-            for (int i = 0; i < myVector2.size(); i++)
+            for (size_t i = 0; i < myVector2.size(); i++)
                 std::cout << "index " << i << " = " << myVector2[i] << "\n";
 
             ft::vector<int> myVector2a(4, 100);
             std::cout << "Construct with n elements and value 100, size = " << myVector2a.size();
             std::cout << "   capacity = " << myVector2a.capacity() << "\n";
-            for (int i = 0; i < myVector2a.size(); i++)
+            for (size_t i = 0; i < myVector2a.size(); i++)
                 std::cout << myVector2a[i] << "\n";
             myVector2a.push_back(222);
             myVector2a.push_back(333);
@@ -35,7 +35,7 @@ int     main() {
 
 			ft::vector<int> myVector3(myVector2a.begin(), myVector2a.end());
 			std::cout << "Range constructor, size = " << myVector3.size() << "\n";
-            for (int i = 0; i < myVector3.size(); i++)
+            for (size_t i = 0; i < myVector3.size(); i++)
                 std::cout << myVector3[i] << "\n";
             myVector2a.push_back(444);
 
@@ -44,7 +44,7 @@ int     main() {
 			ft::vector<int> myVector4(myVector2a);
 			std::cout << "Copy constructor, size = " << myVector4.size();
 			std::cout << "   capacity = " << myVector4.capacity() << "\n";
-            for (int i = 0; i < myVector4.size(); i++)
+            for (size_t i = 0; i < myVector4.size(); i++)
                 std::cout << myVector4[i] << "\n";
 
 
@@ -59,20 +59,20 @@ int     main() {
             std::cout << "Construct with n elements, size = " << originalVector2.size();
             std::cout << "   capacity = " << originalVector2.capacity() << "\n";
             originalVector2.push_back(5);
-            for (int i = 0; i < originalVector2.size(); i++)
+            for (size_t i = 0; i < originalVector2.size(); i++)
                 std::cout << "index " << i << " = " << originalVector2[i] << "\n";
 
             std::vector<int> originalVector2a(4, 100);
             std::cout << "Construct with n elements and value 100, size = " << originalVector2a.size();
             std::cout << "   capacity = " << originalVector2a.capacity() << "\n";
-            for (int i = 0; i < originalVector2a.size(); i++)
+            for (size_t i = 0; i < originalVector2a.size(); i++)
                 std::cout << originalVector2a[i] << "\n";
             originalVector2a.push_back(222);
             originalVector2a.push_back(333);
 
             std::vector<int> originalVector3(originalVector2a.begin(), originalVector2a.end());
             std::cout << "Range constructor, size = " << originalVector3.size() << "\n";
-            for (int i = 0; i < originalVector3.size(); i++)
+            for (size_t i = 0; i < originalVector3.size(); i++)
                 std::cout << originalVector3[i] << "\n";
             originalVector2a.push_back(444);
 
@@ -80,7 +80,7 @@ int     main() {
             std::vector<int> originalVector4(originalVector2a);
             std::cout << "Copy constructor, size = " << originalVector4.size();
             std::cout << "   capacity = " << originalVector4.capacity() << "\n";
-            for (int i = 0; i < originalVector4.size(); i++)
+            for (size_t i = 0; i < originalVector4.size(); i++)
                 std::cout << originalVector4[i] << "\n";
 		}
 
@@ -96,7 +96,7 @@ int     main() {
 			Myvector.push_back(123);
 			Myvector.push_back(456);
 			std::vector<int> Myvector2 = Myvector;
-			for (int i = 0; i < Myvector2.size(); i++)
+			for (size_t i = 0; i < Myvector2.size(); i++)
 				std::cout << i << " = " << Myvector2[i] << std::endl;
 
 			std::cout <<Y "Original operator =\n" D;
@@ -104,7 +104,7 @@ int     main() {
 			original.push_back(123);
 			original.push_back(456);
 			std::vector<int> original2 = original;    // =
-			for (int i = 0; i < original2.size(); i++)
+			for (size_t i = 0; i < original2.size(); i++)
 				std::cout << i << " = " << original2[i] << std::endl;
 		}
 
@@ -187,16 +187,18 @@ int     main() {
             myVector.resize(6, 44);
             std::cout << "Size = " << myVector.size() << "\n";
             std::cout << "Capacity = " << myVector.capacity() << "\n";
-            for (int i = 0; i < myVector.size(); i++)
-                std::cout << myVector[i] << "\n";
+            for (size_t i = 0; i < myVector.size(); i++)
+                std::cout << myVector[i] << " ";
+            std::cout << "\n";
             std::cout << "myVector empty = " << myVector.empty() << "\n";
             ft::vector<int> newMy;
             std::cout << "newMy empty = " << newMy.empty() << "\n";
             myVector.reserve(15);
             std::cout << "Size = " << myVector.size() << "\n";
             std::cout << "Capacity = " << myVector.capacity() << "\n";
-            for (int i = 0; i < myVector.size(); i++)
-                std::cout << myVector[i] << "\n";
+            for (size_t i = 0; i < myVector.size(); i++)
+                std::cout << myVector[i] << " ";
+            std::cout << "\n";
 
 
 
@@ -213,16 +215,18 @@ int     main() {
             originalVector.resize(6, 44);
             std::cout << "Size = " << originalVector.size() << "\n";
             std::cout << "Capacity = " << originalVector.capacity() << "\n";
-            for (int i = 0; i < originalVector.size(); i++)
-                std::cout << originalVector[i] << "\n";
+            for (size_t i = 0; i < originalVector.size(); i++)
+                std::cout << originalVector[i] << " ";
+            std::cout << "\n";
             std::cout << "originalVector empty = " << originalVector.empty() << "\n";
             std::vector<int> newOriginal;
             std::cout << "newOriginal empty = " << newOriginal.empty() << "\n";
             originalVector.reserve(15);
             std::cout << "Size = " << originalVector.size() << "\n";
             std::cout << "Capacity = " << originalVector.capacity() << "\n";
-            for (int i = 0; i < originalVector.size(); i++)
-                std::cout << originalVector[i] << "\n";
+            for (size_t i = 0; i < originalVector.size(); i++)
+                std::cout << originalVector[i] << " ";
+            std::cout << "\n";
         }
 
 
@@ -270,21 +274,24 @@ int     main() {
             myVector.assign(5, 'b');
             std::cout << "Size = " << myVector.size() << "\n";
             std::cout << "Capacity = " << myVector.capacity() << "\n";
-            for (int i = 0; i < myVector.size(); i++)
-                std::cout << myVector[i] << "\n";
+            for (size_t i = 0; i < myVector.size(); i++)
+                std::cout << myVector[i] << " ";
+            std::cout << "\n";
             myVector.assign(3, 'c');
             std::cout << "Size = " << myVector.size() << "\n";
             std::cout << "Capacity = " << myVector.capacity() << "\n";
-            for (int i = 0; i < myVector.size(); i++)
-                std::cout << myVector[i] << "\n";
+            for (size_t i = 0; i < myVector.size(); i++)
+                std::cout << myVector[i] << " ";
+            std::cout << "\n";
             ft::vector<int> my2, my3;
             for (int i = 0; i < 10; i++)
                 my2.push_back(i);
             my3.assign(my2.begin() + 2, my2.end() - 2);
             std::cout << "Size = " << my3.size() << "\n";
             std::cout << "Capacity = " << my3.capacity() << "\n";
-            for (int i = 0; i < my3.size(); i++)
-                std::cout << my3[i] << "\n";
+            for (size_t i = 0; i < my3.size(); i++)
+                std::cout << my3[i] << " ";
+            std::cout << "\n";
 
 
             std::cout << Y "Original assign\n" D;
@@ -294,21 +301,24 @@ int     main() {
             originalVector.assign(5, 'b');
             std::cout << "Size = " << originalVector.size() << "\n";
             std::cout << "Capacity = " << originalVector.capacity() << "\n";
-            for (int i = 0; i < originalVector.size(); i++)
-                std::cout << originalVector[i] << "\n";
+            for (size_t i = 0; i < originalVector.size(); i++)
+                std::cout << originalVector[i] << " ";
+            std::cout << "\n";
             originalVector.assign(3, 'c');
             std::cout << "Size = " << originalVector.size() << "\n";
             std::cout << "Capacity = " << originalVector.capacity() << "\n";
-            for (int i = 0; i < originalVector.size(); i++)
-                std::cout << originalVector[i] << "\n";
+            for (size_t i = 0; i < originalVector.size(); i++)
+                std::cout << originalVector[i] << " ";
+            std::cout << "\n";
             std::vector<int> original2, original3;
             for (int i = 0; i < 10; i++)
                 original2.push_back(i);
             original3.assign(original2.begin() + 2, original2.end() - 2);
             std::cout << "Size = " << original3.size() << "\n";
             std::cout << "Capacity = " << original3.capacity() << "\n";
-            for (int i = 0; i < original3.size(); i++)
-                std::cout << original3[i] << "\n";
+            for (size_t i = 0; i < original3.size(); i++)
+                std::cout << original3[i] << " ";
+            std::cout << "\n";
 
 
             std::cout << G "\npush_back\n"D;
@@ -323,7 +333,7 @@ int     main() {
             myVec.push_back(-123456789.123456789);
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
+            for (size_t i = 0; i < myVec.size(); i++)
                 std::cout << myVec[i] << "\n";
 
             std::cout << Y "Original push_back\n" D;
@@ -335,7 +345,7 @@ int     main() {
             origVec.push_back(-123456789.123456789);
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
+            for (size_t i = 0; i < origVec.size(); i++)
                 std::cout << origVec[i] << "\n";
 
 
@@ -347,7 +357,7 @@ int     main() {
             myVec.pop_back();
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
+            for (size_t i = 0; i < myVec.size(); i++)
                 std::cout << myVec[i] << "\n";
 
 
@@ -357,7 +367,7 @@ int     main() {
             origVec.pop_back();
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
+            for (size_t i = 0; i < origVec.size(); i++)
                 std::cout << origVec[i] << "\n";
 
 
@@ -376,16 +386,18 @@ int     main() {
 
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
-                std::cout << myVec[i] << "\n";
+            for (size_t i = 0; i < myVec.size(); i++)
+                std::cout << myVec[i] << " ";
+            std::cout << "\n";
 
             ft::vector<double> other1(2, 555.555);
             myVec.insert(myVec.begin() + 1, other1.begin(), other1.end());
 
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
-                std::cout << myVec[i] << "\n";
+            for (size_t i = 0; i < myVec.size(); i++)
+                std::cout << myVec[i] << " ";
+            std::cout << "\n";
 
 
             std::cout << Y "Original insert\n" D;  //inserting new elements before the element at the specified position
@@ -398,16 +410,18 @@ int     main() {
 
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
-                std::cout << origVec[i] << "\n";
+            for (size_t i = 0; i < origVec.size(); i++)
+                std::cout << origVec[i] << " ";
+            std::cout << "\n";
 
             std::vector<double> other(2, 555.555);
             origVec.insert(origVec.begin() + 1, other.begin(), other.end());
 
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
-                std::cout << origVec[i] << "\n";
+            for (size_t i = 0; i < origVec.size(); i++)
+                std::cout << origVec[i] << " ";
+            std::cout << "\n";
 
         }
 
@@ -422,25 +436,22 @@ int     main() {
                 myVec.push_back(i);
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
+            for (size_t i = 0; i < myVec.size(); i++)
                 std::cout << myVec[i] << " ";
             std::cout << "\n";
             myVec.erase(myVec.begin() + 5);
             myVec.erase(myVec.begin() + 1);
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
+            for (size_t i = 0; i < myVec.size(); i++)
                 std::cout << myVec[i] << " ";
             std::cout << "\n";
             myVec.erase(myVec.begin(), myVec.begin() + 3);
             std::cout << "Size = " << myVec.size() << "\n";
             std::cout << "Capacity = " << myVec.capacity() << "\n";
-            for (int i = 0; i < myVec.size(); i++)
+            for (size_t i = 0; i < myVec.size(); i++)
                 std::cout << myVec[i] << " ";
             std::cout << "\n";
-
-
-
 
 
 
@@ -451,49 +462,139 @@ int     main() {
                 origVec.push_back(i);
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
+            for (size_t i = 0; i < origVec.size(); i++)
                 std::cout << origVec[i] << " ";
             std::cout << "\n";
             origVec.erase(origVec.begin() + 5);
             origVec.erase(origVec.begin() + 1);
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
+            for (size_t i = 0; i < origVec.size(); i++)
                 std::cout << origVec[i] << " ";
             std::cout << "\n";
             origVec.erase(origVec.begin(), origVec.begin() + 3);
             std::cout << "Size = " << origVec.size() << "\n";
             std::cout << "Capacity = " << origVec.capacity() << "\n";
-            for (int i = 0; i < origVec.size(); i++)
+            for (size_t i = 0; i < origVec.size(); i++)
                 std::cout << origVec[i] << " ";
             std::cout << "\n";
+        }
+
+        {
+            std::cout << G "\nSwap and clear\n"D;
+
+            std::cout <<Y "My swap and clear\n" D;
+
+            ft::vector<std::string> myVec1(5, "Hello_World");
+            ft::vector<std::string> myVec2(3, "Peer_to_peer");
+            myVec1.swap(myVec2);
+            std::cout << "Size vector1 = " << myVec1.size() << "\n";
+            std::cout << "Capacity vector1 = " << myVec1.capacity() << "\n";
+            for (size_t i = 0; i < myVec1.size(); i++)
+                std::cout << myVec1[i] << " ";
+            std::cout << "\n";
+            std::cout << "Size vector2 = " << myVec2.size() << "\n";
+            std::cout << "Capacity vector2 = " << myVec2.capacity() << "\n";
+            for (size_t i = 0; i < myVec2.size(); i++)
+                std::cout << myVec2[i] << " ";
+            std::cout << "\n";
+            myVec1.clear();
+            std::cout << "Size vector1 after = " << myVec1.size() << "\n";
+            std::cout << "Capacity vector1 after = " << myVec1.capacity() << "\n";
 
 
+            std::cout <<Y "Original swap and clear\n" D;
 
+            std::vector<std::string> origVec1(5, "Hello_World");
+            std::vector<std::string> origVec2(3, "Peer_to_peer");
+            origVec1.swap(origVec2);
+            std::cout << "Size vector1 = " << origVec1.size() << "\n";
+            std::cout << "Capacity vector1 = " << origVec1.capacity() << "\n";
+            for (size_t i = 0; i < origVec1.size(); i++)
+                std::cout << origVec1[i] << " ";
+            std::cout << "\n";
+            std::cout << "Size vector2 = " << origVec2.size() << "\n";
+            std::cout << "Capacity vector2 = " << origVec2.capacity() << "\n";
+            for (size_t i = 0; i < origVec2.size(); i++)
+                std::cout << origVec2[i] << " ";
+            std::cout << "\n";
+            origVec1.clear();
+            std::cout << "Size vector1 after clear = " << origVec1.size() << "\n";
+            std::cout << "Capacity vector1 after clear = " << origVec1.capacity() << "\n";
+        }
+
+        std::cout << G "\nOTHER TESTS\n"D;
+
+        std::cout <<Y "My complex type\n" D;
+
+        {
+            ft::vector<ft::vector<std::string> > myComplexVector;
+            ft::vector<std::string> myVector;
+            myVector.push_back("0");
+            myVector.push_back("1");
+            myVector.push_back("2");
+            myVector.push_back("3");
+            myComplexVector.push_back(myVector);
+            myComplexVector.push_back(myVector);
+            std::cout << "Size myComplexVector = " << myComplexVector.size() << "\n";
+            std::cout << "Capacity myComplexVector = " << myComplexVector.capacity() << "\n";
+            ft::vector<std::string> myVector2 = myComplexVector[1];
+            std::cout << "Size myVector2 = " << myVector2.size() << "\n";
+            std::cout << "Capacity myVector2 = " << myVector2.capacity() << "\n";
+            for (size_t i = 0; i < myVector2.size(); i++)
+                std::cout << i << " = " << myVector2[i] << std::endl;
+
+
+            std::cout << Y "original complex type\n" D;
+
+            std::vector<std::vector<std::string> > origComplexVector;
+            std::vector<std::string> origVector;
+            origVector.push_back("0");
+            origVector.push_back("1");
+            origVector.push_back("2");
+            origVector.push_back("3");
+            origComplexVector.push_back(origVector);
+            origComplexVector.push_back(origVector);
+            std::cout << "Size origComplexVector = " << origComplexVector.size() << "\n";
+            std::cout << "Capacity origComplexVector = " << origComplexVector.capacity() << "\n";
+            std::vector<std::string> origVector2 = origComplexVector[1];
+            std::cout << "Size origVector2 = " << origVector2.size() << "\n";
+            std::cout << "Capacity origVector2 = " << origVector2.capacity() << "\n";
+            for (size_t i = 0; i < origVector2.size(); i++)
+                std::cout << i << " = " << origVector2[i] << std::endl;
 
         }
 
 
-//    	{
-//			std::cout << "\nMy vector\n";
-//
-//			ft::vector<std::string> myVector;
-//			myVector.push_back("0");
-//			myVector.push_back("1");
-//			myVector.push_back("2");
-//			myVector.push_back("3");
-//			for (int i = 0; i < myVector.size(); i++)
-//				std::cout << i << " = " << myVector[i] << std::endl;
-//
-//		std::cout << "Original vector\n";
-//			std::vector<std::string> original;
-//			original.push_back("0");
-//			original.push_back("1");
-//			original.push_back("2");
-//			original.push_back("3");
-//			for (int i = 0; i < original.size(); i++)
-//				std::cout << i << " = " << original[i] << std::endl;
-//		}
+        {
+            std::cout <<Y "My non-member function\n" D;
+
+            ft::vector<char> myVec1(3,'f');
+            ft::vector<char> myVec2(3,'3');
+            std::cout << "'==' = " << (myVec1 == myVec2) << "\n";
+            std::cout << "'!=' = " << (myVec1 != myVec2) << "\n";
+            std::cout << "'>' = " << (myVec1 > myVec2) << "\n";
+            std::cout << "'>=' = " << (myVec1 >= myVec2) << "\n";
+            std::cout << "'<' = " << (myVec1 < myVec2) << "\n";
+            std::cout << "'<=' = " << (myVec1 == myVec2) << "\n";
+            myVec1.swap(myVec2);
+            for (size_t i = 0; i < myVec1.size(); i++)
+                std::cout << i << " = " << myVec1[i] << std::endl;
+
+            std::cout <<Y "Original non-member function\n" D;
+
+            std::vector<char> origVec1(3,'f');
+            std::vector<char> origVec2(3,'3');
+            std::cout << "'==' = " << (origVec1 == origVec2) << "\n";
+            std::cout << "'!=' = " << (origVec1 != origVec2) << "\n";
+            std::cout << "'>' = " << (origVec1 > origVec2) << "\n";
+            std::cout << "'>=' = " << (origVec1 >= origVec2) << "\n";
+            std::cout << "'<' = " << (origVec1 < origVec2) << "\n";
+            std::cout << "'<=' = " << (origVec1 == origVec2) << "\n";
+            origVec1.swap(origVec2);
+            for (size_t i = 0; i < origVec1.size(); i++)
+                std::cout << i << " = " << origVec1[i] << std::endl;
+        }
 
 	}
 	catch(const char * e)
@@ -504,127 +605,6 @@ int     main() {
 	{
 		std::cerr << e.what() << '\n';
 	}
-
-
-
-
-		//    vector<std::string> v2(5);
-
-		//   std::vector<int> originalVec1;
-		//    std::vector<std::string> v2(5);
-
-		//std::cout << myVec1.capacity() << std::endl;
-//		myVec1.push_back("sf");
-//		myVec1.push_back("sdf");
-//		myVec1.push_back("sdff");
-//		myVec1.push_back("gdfgffg");
-//
-//		for (int i = 0; i < myVec1.size(); i++)
-//			std::cout << i << "= " << myVec1[i] << std::endl;
-
-			
-		// std::cout << "test size = " << myVec1.size() << std::endl;
-		// //myVec1.clear();
-		// std::cout << "test resize = " << myVec1.size() << std::endl;
-		
-		// myVec1.resize(5, 5);
-		// std::cout << "test resize. size = " << myVec1.size() << std::endl;
-		// for (int i = 0; i < myVec1.size(); i++)
-		//     std::cout << i << "= " << myVec1[i] << std::endl;
-		// myVec1.reserve(20);
-		// std::cout << "test resize. capasity = " << myVec1.capacity() << std::endl;
-		
-		// std::cout << "test resize. size = " << myVec1.size() << std::endl;
-		
-		// //std::cout << "at index = " << myVec1.at(5) << std::endl; // проверить на исключение
-		// std::cout << "test resize. size = " << myVec1.size() << std::endl;
-		// std::cout << "front index = " << myVec1.front() << std::endl;
-		// std::cout << "back index = " << myVec1.back() << std::endl;
-		// std::cout << "begin index = " << *myVec1.begin() << std::endl;
-		// std::cout << "end index = " << *myVec1.end() << std::endl;
-		// std::cout << "rbegin index = " << *myVec1.rbegin() << std::endl;
-		// std::cout << "rend index = " << *myVec1.rend() << std::endl;
-
-		
-		// myVec1.assign(4, 5);
-		//std::cout << "test capacyty = " << myVector.capacity() << std::endl;
-//		for (int i = 0; i < myVec1.size(); i++)
-//			std::cout << i << "= " << myVec1[i] << std::endl;
-
-		
-		
-
-//		myIt = myVec1.begin();
-//		myIt++;
-		// it = myVec1.insert(it , 200);
-		//myVec1.insert(it, 2, 300);
-
-		// it++;
-		// it++;
-		// it = myVec1.insert(it, myVec1.begin(), myVec1.end());
-
-		// std::cout << "test insert. size = " << myVec1.size() << std::endl;
-		// std::cout << "test insert it = " << *it << std::endl;
-		// for (int i = 0; i < myVec1.size(); i++)
-		//     std::cout << i << " = " << myVec1[i] << std::endl;
-		
-
-		// it = myVec1.erase(it);
-		// //it = myVec1.erase(it, myVec1.end());
-		// std::cout << "test erase size = " << myVec1.size() << std::endl;
-		// std::cout << "test erase it = " << *it << std::endl;
-		// for (int i = 0; i < myVec1.size(); i++)
-		//     std::cout << i << " = " << myVec1[i] << std::endl;
-//		std::cout << std::endl;
-//
-//		ft::vector<int> v2, v3;
-		//std::vector<int> v2, v3;
-
-		// v2.resize(3, 1);
-		// v3.resize(4, 9);
-		// for (int i = 0; i < v2.size(); i++)
-		//     std::cout << "myVec1 " << i << " = " << v2[i] << std::endl;
-		// for (int i = 0; i < v3.size(); i++)
-		//     std::cout << "v2 " << i << " = " << v3[i] << std::endl;
-
-		// v2.swap(v3);
-		// std::cout << std::endl;
-		// for (int i = 0; i < v2.size(); i++)
-		//     std::cout << "myVec1 " << i << " = " << v2[i] << std::endl;
-		// for (int i = 0; i < v3.size(); i++)
-		//     std::cout << "v2 " << i << " = " << v3[i] << std::endl;
-
-		//std::cout << "v2 " <<  " = " << v2.max_size()  << std::endl;
-
-		// v2.push_back("sdff");
-		// std::cout << v2.size() << std::endl;
-		// v2.push_back("sdff");
-		// std::cout << v2.size() << std::endl;
-		// std::cout << v2[1] << std::endl;
-		// std::cout << v2[5] << std::endl;
-		// std::cout << v2[8] << std::endl;
-
-
-
-
-
-//}
-//catch(const char * e)
-//{
-//    std::cerr << e << '\n';
-//}
-//catch(const std::exception& e)
-//{
-//    std::cerr << e.what() << '\n';
-//}
-
-
-
-	// ft::vector<ft::vector<std::string> > a1;
-	// 		a1.push_back(myVector);
-	// 		ft::vector<std::string> myVector2 = a1[0];
-	// 		for (int i = 0; i < myVector2.size(); i++)
-	// 			std::cout << i << " = " << myVector2[i] << std::endl;
 
     return 0;
 }

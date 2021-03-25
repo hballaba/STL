@@ -65,8 +65,8 @@ template <class T, class Alloc>
 			return (true);
 		if (lhs.size() > rhs.size())
 			return (false);
-		typename List<T>::const_iterator cur1 = lhs.begin();
-		typename List<T>::const_iterator cur2 = rhs.begin();
+		typename list<T>::const_iterator cur1 = lhs.begin();
+		typename list<T>::const_iterator cur2 = rhs.begin();
 		while (cur1 != lhs.end())
 		{
 			if (*cur1 != *cur2)
