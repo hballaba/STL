@@ -19,7 +19,14 @@ namespace ft {
 
         ~Node() { }
 
-        
+        Node&	operator= (const Node& copy) {
+            if (this == &copy)
+                return *this;
+            this->data = copy.data;
+            this->next = copy.next;
+            this->prev = copy.prev;
+            return *this;
+        }
     };
 }
 
@@ -36,7 +43,10 @@ namespace ft {
 		typedef 	typename allocator_type::const_reference const_reference;
 		typedef 	typename allocator_type::pointer pointer;
 		typedef 	typename allocator_type::const_pointer const_pointer;
-		typedef 	ft::myListIterator<value_type> iterator;
+
+        typedef 	ft::myListIterator<Node<value_type> > iterator;
+
+
 		// typedef 	ft::constMyIterator<value_type> const_iterator;
 		// typedef		ft::reversMyIterator<value_type> reverse_iterator;
 		// typedef		ft::reversConstMyIterator<value_type> const_reverse_iterator;
@@ -59,30 +69,37 @@ namespace ft {
 		    _end = new Node<T>();
             _end->next = _end;
             _end->prev = _end;
-		} ;
+		}
 		
 		explicit list (size_type n, const value_type& val = value_type(),
-                const allocator_type& alloc = allocator_type()) : _size(0) {
+                const allocator_type& alloc = allocator_type()) {
+            _size = 0;
             _end = new Node<T>();
             _end->next = _end;
             _end->prev = _end;
             assign(n, val);
             _size = n;
-
-
-		    // ADDD
 		}
 
 		
 		template <class InputIterator>
   		list (InputIterator first, InputIterator last,
         		const allocator_type& alloc = allocator_type(), char (*)[sizeof(*first)] = NULL) {
-
-  		    // ADDD
-
-		};
+            _size = 0;
+		    _end = new Node<T>();
+            _end->next = _end;
+            _end->prev = _end;
+            assign(first, last);
+		}
 		
-		list (const list& x) {*this = x; };
+		list (const list& x) : _alloc(x._alloc), _size(0) {
+                _end = new Node<T>();
+                _end->next = _end;
+                _end->prev = _end;
+                list<T>::iterator st = x._begin();
+//                list::iterator fin = x._end();
+//                assign(st, fin);
+		}
 
 		~list() {
 			//clear;
@@ -112,10 +129,10 @@ namespace ft {
 
         /***************    Iterators ************/
 //
-        iterator begin() {return _end->next; }
+        iterator begin() {return iterator(_end->next); }
 //        const_iterator begin() const {};
 //
-        iterator end() {return iterator(_end->prev); }
+        iterator end() {return _end; }
 //        const_iterator end() const;
 //
 //        reverse_iterator rbegin();
@@ -147,7 +164,20 @@ namespace ft {
     /***************** Modifiers   ******************/
 
     template <class InputIterator>
-    void assign (InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {}
+    void assign (InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
+        clear();
+        int i = 0;
+        while (first != last) {
+            Node<T> t = *first;
+            Node<T>	*tmp = new Node<T>(t.date);
+            tmp->next = _end;
+            tmp->prev = _end->prev;
+            _end->prev->next = tmp;
+            _end->prev = tmp;
+            _size++;
+            first++;
+        }
+    }
 
     void assign (size_type n, const value_type& val) {
         clear();
@@ -159,7 +189,7 @@ namespace ft {
 
     void push_front (const value_type& val) {
         Node<T>	*tmp = new Node<T>(val);
-        tmp->next = _end->_end->next;
+        tmp->next = _end->next;
         tmp->prev = _end;
         _end->prev->prev = tmp;
         _end->next = tmp;

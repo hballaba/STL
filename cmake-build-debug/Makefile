@@ -143,32 +143,32 @@ STL/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/build
 .PHONY : STL/fast
 
-vector/vectorTest.o: vector/vectorTest.cpp.o
+list/listTest.o: list/listTest.cpp.o
 
-.PHONY : vector/vectorTest.o
+.PHONY : list/listTest.o
 
 # target to build an object file
-vector/vectorTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/vector/vectorTest.cpp.o
-.PHONY : vector/vectorTest.cpp.o
+list/listTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/list/listTest.cpp.o
+.PHONY : list/listTest.cpp.o
 
-vector/vectorTest.i: vector/vectorTest.cpp.i
+list/listTest.i: list/listTest.cpp.i
 
-.PHONY : vector/vectorTest.i
+.PHONY : list/listTest.i
 
 # target to preprocess a source file
-vector/vectorTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/vector/vectorTest.cpp.i
-.PHONY : vector/vectorTest.cpp.i
+list/listTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/list/listTest.cpp.i
+.PHONY : list/listTest.cpp.i
 
-vector/vectorTest.s: vector/vectorTest.cpp.s
+list/listTest.s: list/listTest.cpp.s
 
-.PHONY : vector/vectorTest.s
+.PHONY : list/listTest.s
 
 # target to generate assembly for a file
-vector/vectorTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/vector/vectorTest.cpp.s
-.PHONY : vector/vectorTest.cpp.s
+list/listTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/STL.dir/build.make CMakeFiles/STL.dir/list/listTest.cpp.s
+.PHONY : list/listTest.cpp.s
 
 # Help Target
 help:
@@ -179,9 +179,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... STL"
-	@echo "... vector/vectorTest.o"
-	@echo "... vector/vectorTest.i"
-	@echo "... vector/vectorTest.s"
+	@echo "... list/listTest.o"
+	@echo "... list/listTest.i"
+	@echo "... list/listTest.s"
 .PHONY : help
 
 

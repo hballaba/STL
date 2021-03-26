@@ -80,7 +80,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/hballaba/Desktop/STL/vector/vectorTest.cpp">
+		<Unit filename="/Users/hballaba/Desktop/STL/list/listTest.cpp">
 			<Option target="STL"/>
 		</Unit>
 		<Unit filename="/Users/hballaba/Desktop/STL/CMakeLists.txt">

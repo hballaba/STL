@@ -14,9 +14,10 @@ namespace ft {
             typedef T& reference;
 
         private:
-            pointer p;
+//            pointer p;
 
         public:
+        pointer p;
             myListIterator() : p(nullptr) { }
 
             myListIterator(value_type *x) : p(x) {}
@@ -35,18 +36,32 @@ namespace ft {
             value_type& operator * () { return *p; }
             value_type& operator -> () {return p; }
 
-            myListIterator operator ++ () {++p; return (*this); }
+            myListIterator operator ++ () {
+                p = p->next;
+                return (*this);
+            }
+
             myListIterator operator ++ (int) {
                 myListIterator temp(*this);
                 operator ++();
                 return temp;
             }
-            myListIterator& operator -- () {--p; return (*this); }
+            myListIterator& operator -- () {
+                p = p->prev;
+                return (*this);
+            }
             myListIterator& operator -- (int) {
                 myListIterator temp(*this);
                 operator --();
                 return temp;
             }
+
+            bool operator == (const myListIterator & other) const {return (this->p == other.p); }
+            bool operator != (const myListIterator & other) const { return (this->p != other.p); }
+            bool operator > (const myListIterator & other) const { return (this->p > other.p); }
+            bool operator < (const myListIterator & other) const { return (this->p < other.p); }
+            bool operator >= (const myListIterator & other) const { return (this->p >= other.p); }
+            bool operator <= (const myListIterator & other) const { return (this->p <= other.p); }
         };
 
 

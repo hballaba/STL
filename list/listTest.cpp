@@ -19,18 +19,24 @@ int main () {
             std::cout << "Construct with n element empty, size = " << myListElement1.size() << "\n";
             std::cout << "Front element = |" << myListElement1.front() << "|\n";
 
-            ft::list<char> myListElement(4,'C');
+            ft::list<char> myListElement(4, 'C');
             std::cout << "Construct with n element, size = " << myListElement.size() << "\n";
             std::cout << "Front element = " << myListElement.front() << "\n";
-            std::cout <<  "Back element = " << myListElement.back() << "\n";
+            std::cout << "Back element = " << myListElement.back() << "\n";
 
             myListElement.push_back('Z');
             ft::list<char>::iterator myIT = myListElement.begin();
-            //ft::list<char> myinalIterator(myIT, myListElement.end());
-//            std::cout << "Construct with iterator, size = " << myinalIterator.size() << "\n";
-//            std::cout << "Front element = " << myinalIterator.front() << "\n";
-//            std::cout <<  "Back element = " << myinalIterator.back() << "\n";
+            ft::list<char>::iterator myITend = myListElement.end();
+            ft::list<char> myinalIterator(myIT, myITend);
+            std::cout << "Construct with iterator, size = " << myinalIterator.size() << "\n";
+            std::cout << "Front element = " << myinalIterator.front() << "\n";
+            std::cout << "Back element = " << myinalIterator.back() << "\n";
 
+            myListElement.push_front('A');
+            ft::list<char> myListCopy(myListElement);
+//            std::cout << "Construct copy, size = " << myListCopy.size() << "\n";
+//            std::cout << "Front element = " << myListCopy.front() << "\n";
+//            std::cout << "Back element = " << myListCopy.back() << "\n";
 
 
             std::cout << Y"Original constructor\n"D;
@@ -42,23 +48,29 @@ int main () {
             std::cout << "Construct with n element empty, size = " << origListElement1.size() << "\n";
             std::cout << "Front element = |" << origListElement1.front() << "|\n";
 
-            std::list<char> origListElement(4,'C');
+            std::list<char> origListElement(4, 'C');
             std::cout << "Construct with n element, size = " << origListElement.size() << "\n";
             std::cout << "Front element = " << origListElement.front() << "\n";
-            std::cout <<  "Back element = " << origListElement.back() << "\n";
+            std::cout << "Back element = " << origListElement.back() << "\n";
 
             origListElement.push_back('Z');
             std::list<char>::iterator origIT = origListElement.begin();
             std::list<char> originalIterator(origIT, origListElement.end());
             std::cout << "Construct with iterator, size = " << originalIterator.size() << "\n";
             std::cout << "Front element = " << originalIterator.front() << "\n";
-            std::cout <<  "Back element = " << originalIterator.back() << "\n";
+            std::cout << "Back element = " << originalIterator.back() << "\n";
+
+            origListElement.push_front('A');
+            std::list<char> origListCopy(origListElement);
+            std::cout << "Construct copy, size = " << origListCopy.size() << "\n";
+            std::cout << "Front element = " << origListCopy.front() << "\n";
+            std::cout << "Back element = " << origListCopy.back() << "\n";
 
 
+        }
 
 
-
-
+    {
 
 //        std::list<int> orlist;
 //        orlist.assign(5,7);

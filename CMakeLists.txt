@@ -3,4 +3,4 @@ project(STL)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(STL vector/vectorTest.cpp)
+add_executable(STL list/listTest.cpp)

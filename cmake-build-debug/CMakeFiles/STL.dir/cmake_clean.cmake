@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/STL.dir/vector/vectorTest.cpp.o"
+  "CMakeFiles/STL.dir/list/listTest.cpp.o"
   "STL"
   "STL.pdb"
 )
