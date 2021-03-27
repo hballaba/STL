@@ -15,9 +15,22 @@ int main () {
             ft::list<int> myListDefault;
             std::cout << "Default construct, size = " << myListDefault.size() << "\n";
 
-            ft::list<char> myListElement1(6);
+            ft::list<char> myListElement1(2);
             std::cout << "Construct with n element empty, size = " << myListElement1.size() << "\n";
             std::cout << "Front element = |" << myListElement1.front() << "|\n";
+//            ft::list<char>::const_iterator myIT1;// = myListElement1.begin();
+//
+//            std::cout  << "iterator = " << *myIT1 << "\n";
+
+
+
+
+//нужно разобраться с константным итераторм
+
+//хочу реализовать через пуш бэк
+
+
+
 
             ft::list<char> myListElement(4, 'C');
             std::cout << "Construct with n element, size = " << myListElement.size() << "\n";
@@ -32,12 +45,6 @@ int main () {
             std::cout << "Front element = " << myinalIterator.front() << "\n";
             std::cout << "Back element = " << myinalIterator.back() << "\n";
 
-            myListElement.push_front('A');
-            ft::list<char> myListCopy(myListElement);
-//            std::cout << "Construct copy, size = " << myListCopy.size() << "\n";
-//            std::cout << "Front element = " << myListCopy.front() << "\n";
-//            std::cout << "Back element = " << myListCopy.back() << "\n";
-
 
             std::cout << Y"Original constructor\n"D;
 
@@ -48,24 +55,95 @@ int main () {
             std::cout << "Construct with n element empty, size = " << origListElement1.size() << "\n";
             std::cout << "Front element = |" << origListElement1.front() << "|\n";
 
-            std::list<char> origListElement(4, 'C');
-            std::cout << "Construct with n element, size = " << origListElement.size() << "\n";
-            std::cout << "Front element = " << origListElement.front() << "\n";
-            std::cout << "Back element = " << origListElement.back() << "\n";
+//            std::list<char> origListElement(4, 'C');
+//            std::cout << "Construct with n element, size = " << origListElement.size() << "\n";
+//            std::cout << "Front element = " << origListElement.front() << "\n";
+//            std::cout << "Back element = " << origListElement.back() << "\n";
 
-            origListElement.push_back('Z');
-            std::list<char>::iterator origIT = origListElement.begin();
-            std::list<char> originalIterator(origIT, origListElement.end());
-            std::cout << "Construct with iterator, size = " << originalIterator.size() << "\n";
-            std::cout << "Front element = " << originalIterator.front() << "\n";
-            std::cout << "Back element = " << originalIterator.back() << "\n";
+//            origListElement.push_back('Z');
+//            std::list<char>::iterator origIT = origListElement.begin();
+//            std::list<char> originalIterator(origIT, origListElement.end());
+//            std::cout << "Construct with iterator, size = " << originalIterator.size() << "\n";
+//            std::cout << "Front element = " << originalIterator.front() << "\n";
+//            std::cout << "Back element = " << originalIterator.back() << "\n";
 
-            origListElement.push_front('A');
-            std::list<char> origListCopy(origListElement);
-            std::cout << "Construct copy, size = " << origListCopy.size() << "\n";
-            std::cout << "Front element = " << origListCopy.front() << "\n";
-            std::cout << "Back element = " << origListCopy.back() << "\n";
+        }
 
+                /****** OPERATOR =  ********/
+        {
+            std::cout << Y "\nMy operator '='\n" D;
+
+//            ft::list<int> myList;
+//            for (int i = 0; i < 5; i++)
+//                myList.push_back(i);
+//            ft::list<int> myListCopy(myList);
+//            std::cout << "Construct copy, size = " << myListCopy.size() << "\n";
+//            std::cout << "Front element = " << myListCopy.front() << "\n";
+//            std::cout << "Back element = " << myListCopy.back() << "\n";
+//
+//
+//            std::cout << Y "Original operator '='\n" D;
+//
+//            std::list<int> origList;
+//            for (int i = 0; i < 5; i++)
+//                origList.push_back(i);
+//            std::list<int> origListCopy(origList);
+//            std::cout << "Construct copy, size = " << origListCopy.size() << "\n";
+//            std::cout << "Front element = " << origListCopy.front() << "\n";
+//            std::cout << "Back element = " << origListCopy.back() << "\n";
+        }
+
+                    /****** ITERATOR ********/
+
+
+        {
+
+            std::cout <<Y "\nMy iterator\n" D;
+
+//            ft::list<int>::iterator myIT;
+//            ft::list<int>::iterator myITend;
+//            ft::list<int> myVector;
+//            for(int i = 0; i < 10; i+=2)
+//                myVector.push_back(i);
+//            myIT = myVector.begin();
+//            myITend = myVector.end();
+//            while(myIT != myITend ) {
+//                std::cout << "MyIT = " << *myIT << "\n";
+//                myIT++;
+//            }
+
+//            ft::list<int>::reverse_iterator myITReverse;
+//            ft::list<int>::reverse_iterator myITEndReverse;
+//            myITReverse = myVector.rbegin();
+//            myITEndReverse = myVector.rend();
+//            while(myITReverse != myITEndReverse) {
+//                std::cout << "myITReverse = " << *myITReverse << "\n";
+//                myITReverse++;
+//            }
+
+            std::cout <<Y "Original iterator\n" D;
+
+
+//            std::list<int>::iterator originalIT;
+//            std::list<int>::iterator originalITend;
+//            std::list<int> originalVector;
+//            for(int i = 0; i < 10; i+=2)
+//                originalVector.push_back(i);
+//            originalIT = originalVector.begin();
+//            originalITend = originalVector.end();
+//            while(originalIT != originalITend ) {
+//                std::cout << "OriginalIT = " << *originalIT << "\n";
+//                originalIT++;
+//            }
+//
+//            std::list<int>::reverse_iterator originalITReverse;
+//            std::list<int>::reverse_iterator originalITEndReverse;
+//            originalITReverse = originalVector.rbegin();
+//            originalITEndReverse = originalVector.rend();
+//            while(originalITReverse != originalITEndReverse) {
+//                std::cout << "originalITReverse = " << *originalITReverse << "\n";
+//                originalITReverse++;
+//            }
 
         }
 

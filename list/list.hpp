@@ -3,33 +3,9 @@
 # define LIST_HPP
 
 # include "list_iterator.hpp"
+# include "node.hpp"
 
-namespace ft {
-
-    template<class T>
-    class Node {
-    public:
-        T date;
-        Node *next;
-        Node *prev;
-
-        explicit Node(const T &val = T()) : date(val), next(nullptr), prev(nullptr) { }
-
-        Node(const Node &other) : date(other.date), next(other.next), prev(other.prev) { }
-
-        ~Node() { }
-
-        Node&	operator= (const Node& copy) {
-            if (this == &copy)
-                return *this;
-            this->data = copy.data;
-            this->next = copy.next;
-            this->prev = copy.prev;
-            return *this;
-        }
-    };
-}
-
+//typedef list_node<typename ft::remove_const<T>::type> node;
 namespace ft {
 
 
@@ -44,10 +20,10 @@ namespace ft {
 		typedef 	typename allocator_type::pointer pointer;
 		typedef 	typename allocator_type::const_pointer const_pointer;
 
-        typedef 	ft::myListIterator<Node<value_type> > iterator;
+        typedef 	ft::myListIterator<value_type> iterator;
 
 
-		// typedef 	ft::constMyIterator<value_type> const_iterator;
+		typedef 	ft::myListConstIterator<value_type> const_iterator;
 		// typedef		ft::reversMyIterator<value_type> reverse_iterator;
 		// typedef		ft::reversConstMyIterator<value_type> const_reverse_iterator;
 		typedef		ptrdiff_t difference_type;
@@ -89,23 +65,34 @@ namespace ft {
 		    _end = new Node<T>();
             _end->next = _end;
             _end->prev = _end;
-            assign(first, last);
+            while (first != last) {
+                std::cout << "first = " << *first << "\n";
+                push_back(*first);
+                first++;
+                _size++;
+            }
 		}
 		
 		list (const list& x) : _alloc(x._alloc), _size(0) {
                 _end = new Node<T>();
                 _end->next = _end;
                 _end->prev = _end;
-                list<T>::iterator st = x._begin();
-//                list::iterator fin = x._end();
-//                assign(st, fin);
+                const_iterator st = x.begin();
+            for (int i = 0; i < x._size; i--) {
+
+//                std::cout << "st = " << *st << "\n";
+//                push_back(*x);
+                this->_size++;
+            }
+
+
 		}
 
 		~list() {
-			//clear;
-			// null cheсk 
-			//_alloc.dealocate(_begin);
-			//_alloc.dealocate(_end);
+			clear();
+			delete _end;
+
+
 
 		};
 
@@ -130,10 +117,12 @@ namespace ft {
         /***************    Iterators ************/
 //
         iterator begin() {return iterator(_end->next); }
-//        const_iterator begin() const {};
-//
-        iterator end() {return _end; }
-//        const_iterator end() const;
+
+        const_iterator begin() const {return const_iterator(_end->next); }
+
+        iterator end() {return iterator(_end); }
+
+        const_iterator end() const {return const_iterator( _end); }
 //
 //        reverse_iterator rbegin();
 //        const_reverse_iterator rbegin() const;
@@ -166,17 +155,27 @@ namespace ft {
     template <class InputIterator>
     void assign (InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
         clear();
-        int i = 0;
-        while (first != last) {
-            Node<T> t = *first;
-            Node<T>	*tmp = new Node<T>(t.date);
-            tmp->next = _end;
-            tmp->prev = _end->prev;
-            _end->prev->next = tmp;
-            _end->prev = tmp;
-            _size++;
-            first++;
-        }
+
+//        Noda<T> t = first.p;
+//        first.getp();
+        //std::cout << "tyt = " << *first << "\n";
+//        while (first != last) {
+//            Node<T> t = first.getp();
+
+//            this->clear();
+//            while (first != last) {
+//                const value_type v = *first;
+//                push_back(v);
+//                ++first;
+//            }
+//            Node<T>	*tmp = new Node<T>(t.date);
+//            tmp->next = _end;
+//            tmp->prev = _end->prev;
+//            _end->prev->next = tmp;
+//            _end->prev = tmp;
+//            _size++;
+//            first++;
+//        }
     }
 
     void assign (size_type n, const value_type& val) {
@@ -222,7 +221,7 @@ namespace ft {
         {
             Node<T>	*tmp = _end->prev->prev;
             tmp->next = _end;
-            delete _end->prev;
+//            delete _end->prev;
             _end->prev = tmp;
             _size--;
         }
