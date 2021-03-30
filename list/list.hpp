@@ -65,11 +65,10 @@ namespace ft {
 		    _end = new Node<T>();
             _end->next = _end;
             _end->prev = _end;
+			
             while (first != last) {
-                std::cout << "first = " << *first << "\n";
                 push_back(*first);
                 first++;
-                _size++;
             }
 		}
 		
@@ -78,12 +77,13 @@ namespace ft {
                 _end->next = _end;
                 _end->prev = _end;
                 const_iterator st = x.begin();
-            for (int i = 0; i < x._size; i--) {
-
-//                std::cout << "st = " << *st << "\n";
-//                push_back(*x);
-                this->_size++;
+				// std::cout << "size = " << x.size() << "\n";
+            for (int i = 0; i < x._size; i++) {
+	            push_back(*st);
+    			st++;
             }
+    // std::cout << "st = " << *st << "\n";
+
 
 
 		}
@@ -97,20 +97,17 @@ namespace ft {
 		};
 
         list &operator=(list const &toCopy) {
-//            if (toCopy._capacity != this->_capacity) {
-//                for (size_t i = 0; i < this->_size; i++) {
-//                    this->_alloc.destroy(this->_array + i);
-//                }
-//                if (this->_capacity > 0) {
-//                    this->_alloc.deallocate(this->_array, this->_capacity);
-//                }
-//                this->_array = _alloc.allocate(toCopy._capacity);
-//            }
-//            for (size_t i = 0; i < toCopy._size; i++)
-//                this->_alloc.construct(this->_array + i, toCopy._array[i]);
-//            this->_size = toCopy._size;
-//            this->_capacity = toCopy._capacity;
-//            return *this;
+          	this->clear();
+			
+		  	this->_end->next = this->_end;
+            this->_end->prev = this->_end;
+                const_iterator st = toCopy.begin();
+				// std::cout << "size = " << x.size() << "\n";
+            for (int i = 0; i < toCopy._size; i++) {
+	            push_back(*st);
+    			st++;
+            }
+		  	 return *this;
         }
 
 
