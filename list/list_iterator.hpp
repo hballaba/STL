@@ -27,6 +27,8 @@ namespace ft {
         private:
             node *p;
 
+
+
         public:
 
             myListIterator() : p(nullptr) { }
@@ -78,10 +80,15 @@ namespace ft {
             bool operator >= (const myListIterator & other) const { return (this->p >= other.p); }
             bool operator <= (const myListIterator & other) const { return (this->p <= other.p); }
 
-            node getp() {
+//            node getp() {
+//
+//                return p;
+//            }
+//            node*	getnext() const { return p->next; }
+            node*	getprev() const { return p->prev; }
+            node*	getp() const { return p; }
 
-                return p; }
-        };
+            };
 
 
     template <typename T>
