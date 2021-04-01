@@ -47,6 +47,7 @@ namespace ft {
 		
 		explicit list (size_type n, const value_type& val = value_type(),
                 const allocator_type& alloc = allocator_type()) {
+		    _alloc = alloc;
             _size = 0;
             _end = new Node<T>();
             _end->next = _end;
@@ -59,7 +60,8 @@ namespace ft {
 		template <class InputIterator>
   		list (InputIterator first, InputIterator last,
         		const allocator_type& alloc = allocator_type(), char (*)[sizeof(*first)] = NULL) {
-            _size = 0;
+            _alloc = alloc;
+		    _size = 0;
 		    _end = new Node<T>();
             _end->next = _end;
             _end->prev = _end;
@@ -70,16 +72,19 @@ namespace ft {
             }
 		}
 		
-		list (const list& x) : _alloc(x._alloc), _size(0) {
-                _end = new Node<T>();
-                _end->next = _end;
-                _end->prev = _end;
-                const_iterator st = x.begin();
-            for (size_t i = 0; i < x._size; i++) {
-	            push_back(*st);
-    			st++;
-            }
-  		}
+		list (const list& x) {
+		    this->_alloc = x._alloc;
+		    _size = 0;
+		    _end = new Node<T>();
+		    _end->next = _end;
+		    _end->prev = _end;
+		    const_iterator st = x.begin();
+		    for (size_t i = 0; i < x._size; i++) {
+		       push_back(*st);
+		       st++;
+
+		    }
+		}
 
 		~list() {
 			clear();
@@ -95,7 +100,7 @@ namespace ft {
 		  	this->_end->next = this->_end;
             this->_end->prev = this->_end;
                 const_iterator st = toCopy.begin();
-            for (int i = 0; i < toCopy._size; i++) {
+            for (size_t i = 0; i < toCopy._size; i++) {
 	            push_back(*st);
     			st++;
             }
@@ -148,7 +153,6 @@ namespace ft {
         template <class InputIterator>
         void assign (InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
             clear();
-            size_t i = -1;
             while (first != last) {
                 push_back(*first);
                 first++;

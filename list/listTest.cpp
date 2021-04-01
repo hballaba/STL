@@ -1335,6 +1335,11 @@ int main () {
                 std::cout << "\n";
             }
         }
+
+        std::cout << Y"Now you can check memory leaks, with leaks a.out in other terminal" << D"\n";
+        std::cout << G"To exit press Enter" << D"\n";
+        getchar();
+        std::cout << G"Good bye" << D"\n";
     }
     catch(const char * e)
     {
