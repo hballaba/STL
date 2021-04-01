@@ -2,7 +2,6 @@
 
 #define ITERATOR_HPP
 
-//#include "utils.hpp"
 #include <iostream>
 #include <iterator>
 
@@ -10,14 +9,13 @@ namespace ft {
 
 	template <class T>
 
-	//template </*class Category, */class T, class Distance = ptrdiff_t,	class Pointer = T*, class Reference = T&>
+
 	class myIterator : public std::iterator<std::bidirectional_iterator_tag, T> {
 
 		typedef T         value_type;
-//		typedef Distance  difference_type;
 		typedef T*   pointer;
 		typedef T& reference;
-		//typedef Category  iterator_category;
+
 
 	private:
 		pointer p;

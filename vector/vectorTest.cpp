@@ -596,6 +596,12 @@ int     main() {
                 std::cout << i << " = " << origVec1[i] << std::endl;
         }
 
+        std::cout << Y"now you can check memory leaks, with leaks a.out in other terminal" << D"\n";
+        std::cout << G"To exit press any button" << D"\n";
+        getchar();
+        std::cout << G"Good bye" << D"\n";
+
+
 	}
 	catch(const char * e)
 	{
