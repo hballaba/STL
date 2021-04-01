@@ -20,9 +20,7 @@ namespace ft {
             typedef T value_type;
             typedef T* pointer;
             typedef T& reference;
-//            typedef Node<T> node;
             typedef Node<T> node;
-            //typedef myListIterator<T>  iterator;
 
         private:
             node *p;
@@ -46,12 +44,8 @@ namespace ft {
                 return (*this);
             }
 
-//            reference operator * () { return *p; }
             value_type  operator * () const  { return (p->date); }
-            //value_type& operator * () { return (p->date); }
-//            pointer& operator -> () {return *p; }
-
-//
+            pointer& operator -> () {return *p; }
 
             myListIterator operator ++ () {
                 p = p->next;
@@ -80,12 +74,6 @@ namespace ft {
             bool operator >= (const myListIterator & other) const { return (this->p >= other.p); }
             bool operator <= (const myListIterator & other) const { return (this->p <= other.p); }
 
-//            node getp() {
-//
-//                return p;
-//            }
-//            node*	getnext() const { return p->next; }
-            node*	getprev() const { return p->prev; }
             node*	getp() const { return p; }
 
             };
@@ -96,9 +84,7 @@ namespace ft {
         typedef T value_type;
         typedef T* pointer;
         typedef T& reference;
-//            typedef Node<T> node;
         typedef Node<T> node;
-        //typedef myListConstIterator<T>  iterator;
 
     private:
         node *p;
@@ -120,12 +106,8 @@ namespace ft {
             return (*this);
         }
 
-//            reference operator * () { return *p; }
         const value_type  operator * () const  { return (p->date); }
-        //value_type& operator * () { return (p->date); }
-//            pointer& operator -> () {return *p; }
-
-//
+        pointer& operator -> () {return *p; }
 
         myListConstIterator operator ++ () {
             p = p->next;
@@ -158,6 +140,136 @@ namespace ft {
 
             return p; }
    };
+
+
+
+    template <typename T>
+    class reversmyListIterator {
+        typedef T value_type;
+        typedef T* pointer;
+        typedef T& reference;
+        typedef Node<T> node;
+
+    private:
+        node *p;
+
+
+
+    public:
+
+        reversmyListIterator() : p(nullptr) { }
+
+        reversmyListIterator(node *x) : p(x) { }
+
+        reversmyListIterator(const reversmyListIterator<T>& it) : p(const_cast<node *>(it.p)) { }
+
+        ~reversmyListIterator() { }
+
+        reversmyListIterator & operator=(const reversmyListIterator &copy) {
+            if (this == &copy)
+                return (*this);
+            this->p = copy.p;
+            return (*this);
+        }
+
+        value_type  operator * () const  { return (p->date); }
+        pointer& operator -> () {return *p; }
+
+        reversmyListIterator operator ++ () {
+            p = p->prev;
+            return (*this);
+        }
+
+        reversmyListIterator operator ++ (int) {
+            reversmyListIterator temp(*this);
+            operator ++();
+            return temp;
+        }
+        reversmyListIterator& operator -- () {
+            p = p->next;
+            return (*this);
+        }
+        reversmyListIterator& operator -- (int) {
+            reversmyListIterator temp(*this);
+            operator --();
+            return temp;
+        }
+
+        bool operator == (const reversmyListIterator & other) const {return (this->p == other.p); }
+        bool operator != (const reversmyListIterator & other) const { return (this->p != other.p); }
+        bool operator > (const reversmyListIterator & other) const { return (this->p > other.p); }
+        bool operator < (const reversmyListIterator & other) const { return (this->p < other.p); }
+        bool operator >= (const reversmyListIterator & other) const { return (this->p >= other.p); }
+        bool operator <= (const reversmyListIterator & other) const { return (this->p <= other.p); }
+
+        node*	getp() const { return p; }
+
+    };
+
+
+    template <typename T>
+    class constreversemyListIterator {
+        typedef T value_type;
+        typedef T* pointer;
+        typedef T& reference;
+        typedef Node<T> node;
+
+    private:
+        node *p;
+
+
+
+    public:
+
+        constreversemyListIterator() : p(nullptr) { }
+
+        constreversemyListIterator(node *x) : p(x) { }
+
+        constreversemyListIterator(const constreversemyListIterator<T>& it) : p(const_cast<node *>(it.p)) { }
+
+        ~constreversemyListIterator() { }
+
+        constreversemyListIterator & operator=(const constreversemyListIterator &copy) {
+            if (this == &copy)
+                return (*this);
+            this->p = copy.p;
+            return (*this);
+        }
+
+        const value_type  operator * () const  { return (p->date); }
+        const pointer& operator -> () {return *p; }
+
+        constreversemyListIterator operator ++ () {
+            p = p->prev;
+            return (*this);
+        }
+
+        constreversemyListIterator operator ++ (int) {
+            constreversemyListIterator temp(*this);
+            operator ++();
+            return temp;
+        }
+        constreversemyListIterator& operator -- () {
+            p = p->next;
+            return (*this);
+        }
+        constreversemyListIterator& operator -- (int) {
+            constreversemyListIterator temp(*this);
+            operator --();
+            return temp;
+        }
+
+        bool operator == (const constreversemyListIterator & other) const {return (this->p == other.p); }
+        bool operator != (const constreversemyListIterator & other) const { return (this->p != other.p); }
+        bool operator > (const constreversemyListIterator & other) const { return (this->p > other.p); }
+        bool operator < (const constreversemyListIterator & other) const { return (this->p < other.p); }
+        bool operator >= (const constreversemyListIterator & other) const { return (this->p >= other.p); }
+        bool operator <= (const constreversemyListIterator & other) const { return (this->p <= other.p); }
+
+        node*	getp() const { return p; }
+
+    };
+
 
 
 

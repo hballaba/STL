@@ -6,15 +6,10 @@
 # define Y "\e[93m"
 
 
-// a predicate implemented as a function:
 bool single_digit (const int& value) { return (value<10); }
 
 bool same_integral_part (double first, double second)
 { return ( int(first)==int(second) ); }
-
-bool mycomparison (double first, double second)
-{ return ( int(first)<int(second) ); }
-
 
 bool compare_nocase (const std::string& first, const std::string& second)
 {
@@ -28,22 +23,14 @@ bool compare_nocase (const std::string& first, const std::string& second)
     return ( first.length() < second.length() );
 }
 
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+
 
 int main () {
     try {
 
-        {
-            ft::list<int> myList;
-            myList.push_back(1);
-            myList.push_back(2);
-            myList.push_back(3);
-
-            myList.pop_back();
-            myList.pop_back();
-//            myList.pop_back();
-        }
-
-        /****** CONSTRUCTOR  ********/
+       /****** CONSTRUCTOR  ********/
 
         {
             std::cout << Y "My constructor\n" D;
@@ -54,18 +41,6 @@ int main () {
             ft::list<char> myListElement1(6);
             std::cout << "Construct with n element empty, size = " << myListElement1.size() << "\n";
             std::cout << "Front element = |" << myListElement1.front() << "|\n";
-//            ft::list<char>::const_iterator myIT1;// = myListElement1.begin();
-//
-//            std::cout  << "iterator = " << *myIT1 << "\n";
-
-
-
-
-//нужно разобраться с константным итераторм
-
-//хочу реализовать через пуш бэк
-
-
 
 
             ft::list<char> myListElement(4, 'C');
@@ -153,55 +128,54 @@ int main () {
 
                     /****** ITERATOR ********/
 
-
         {
 
             std::cout <<Y "\nMy iterator\n" D;
 
            ft::list<int>::iterator myIT;
            ft::list<int>::iterator myITend;
-           ft::list<int> myVector;
+           ft::list<int> myList;
            for(int i = 0; i < 10; i+=2)
-               myVector.push_back(i);
-           myIT = myVector.begin();
-           myITend = myVector.end();
+               myList.push_back(i);
+           myIT = myList.begin();
+           myITend = myList.end();
            while(myIT != myITend ) {
                std::cout << "MyIT = " << *myIT << "\n";
                myIT++;
            }
 
-//            ft::list<int>::reverse_iterator myITReverse;
-//            ft::list<int>::reverse_iterator myITEndReverse;
-//            myITReverse = myVector.rbegin();
-//            myITEndReverse = myVector.rend();
-//            while(myITReverse != myITEndReverse) {
-//                std::cout << "myITReverse = " << *myITReverse << "\n";
-//                myITReverse++;
-//            }
+            ft::list<int>::reverse_iterator myITReverse;
+            ft::list<int>::reverse_iterator myITEndReverse;
+            myITReverse = myList.rbegin();
+            myITEndReverse = myList.rend();
+            while(myITReverse != myITEndReverse) {
+                std::cout << "myITReverse = " << *myITReverse << "\n";
+                myITReverse++;
+            }
 
             std::cout <<Y "Original iterator\n" D;
 
 
            std::list<int>::iterator originalIT;
            std::list<int>::iterator originalITend;
-           std::list<int> originalVector;
+           std::list<int> originalList;
            for(int i = 0; i < 10; i+=2)
-               originalVector.push_back(i);
-           originalIT = originalVector.begin();
-           originalITend = originalVector.end();
+               originalList.push_back(i);
+           originalIT = originalList.begin();
+           originalITend = originalList.end();
            while(originalIT != originalITend ) {
                std::cout << "OriginalIT = " << *originalIT << "\n";
                originalIT++;
            }
 
-//            std::list<int>::reverse_iterator originalITReverse;
-//            std::list<int>::reverse_iterator originalITEndReverse;
-//            originalITReverse = originalVector.rbegin();
-//            originalITEndReverse = originalVector.rend();
-//            while(originalITReverse != originalITEndReverse) {
-//                std::cout << "originalITReverse = " << *originalITReverse << "\n";
-//                originalITReverse++;
-//            }
+            std::list<int>::reverse_iterator originalITReverse;
+            std::list<int>::reverse_iterator originalITEndReverse;
+            originalITReverse = originalList.rbegin();
+            originalITEndReverse = originalList.rend();
+            while(originalITReverse != originalITEndReverse) {
+                std::cout << "originalITReverse = " << *originalITReverse << "\n";
+                originalITReverse++;
+            }
 
         }
 
@@ -255,7 +229,6 @@ int main () {
                 std::cout << "front = " << origlist.front() << '\n';
                 std::cout << "back = " << origlist.back() << '\n';
 
-                // add const check
         }
 
                 /********* MODIFIERS  ***********/
@@ -317,7 +290,6 @@ int main () {
                 itSt0++;
             }
         }
-
 
 
         {
@@ -512,12 +484,11 @@ int main () {
                     itSt0++;
                 }
                 std::cout << "\n";
-
-
             }
 
 
         {
+
             std::cout << Y"\nMy erase\n"D;
 
             ft::list<double> myList;
@@ -647,9 +618,7 @@ int main () {
             std::cout << "\n";
 
 
-
             std::cout << Y"\nOriginal swap\n"D;
-
 
             std::list<std::string> origList;
             origList.assign(3, "SCHOOL");
@@ -696,8 +665,8 @@ int main () {
         }
 
         {
-            std::cout << Y"\nMy resize and clear\n"D;
 
+            std::cout << Y"\nMy resize and clear\n"D;
 
             ft::list<char> myList;
             myList.push_back('A');
@@ -1002,8 +971,6 @@ int main () {
                     itSt0++;
                 }
                 std::cout << "\n";
-
-
             }
 
         {
@@ -1074,7 +1041,7 @@ int main () {
                 itSt0++;
             }
             std::cout << "\n";
-//            origList.sort();
+
             origList.unique();
             itSt0 = origList.begin();
             itFin0 = origList.end();
@@ -1101,6 +1068,7 @@ int main () {
             std::cout << "\n";
 
         }
+
 
         {
 
@@ -1134,26 +1102,77 @@ int main () {
             }
             std::cout << "\n";
 
-            ft::list<int> myList2;
-            myList2.push_back(1);
-            myList2.push_back(2);
-            myList2.push_back(3);
-
-            myList2.reverse();
-            ft::list<int>::iterator itSt1;
-            ft::list<int>::iterator itFin1;
-            itSt1 = myList2.begin();
-            itFin1 = myList2.end();
+            myList.reverse();
+            itSt = myList.begin();
+            itFin = myList.end();
             std::cout << "Size myList after reverse = " << myList.size() << "\n";
             std::cout << "Value myList = ";
-            while (itSt1 != itFin1) {
-                std::cout << "|" << *itSt1 << "| ";
-                itSt1++;
+            while (itSt != itFin) {
+                std::cout << "|" << *itSt << "| ";
+                itSt++;
+            }
+            std::cout << "\n";
+
+            ft::list<std::string> myList2;
+            myList2.push_back("hello");
+            myList2.push_back("world");
+            myList2.push_back("school");
+            myList2.push_back("21");
+
+            myList.sort();
+            myList2.sort();
+            myList.merge(myList2);
+            itSt = myList.begin();
+            itFin = myList.end();
+            std::cout << "Size myList after merge = " << myList.size() << "\n";
+            std::cout << "Value myList = ";
+            while (itSt != itFin) {
+                std::cout << "|" << *itSt << "| ";
+                itSt++;
+            }
+            std::cout << "\n";
+
+            itSt = myList2.begin();
+            itFin = myList2.end();
+            std::cout << "Size myList2 after merge = " << myList2.size() << "\n";
+            std::cout << "Value myList2 = ";
+            while (itSt != itFin) {
+                std::cout << "|" << *itSt << "| ";
+                itSt++;
             }
             std::cout << "\n";
 
 
+            ft::list<double> first1, second1;
+            first1.push_back (3.1);
+            first1.push_back (2.2);
+            first1.push_back (2.9);
+
+            second1.push_back (3.7);
+            second1.push_back (7.1);
+            second1.push_back (1.4);
+
+            first1.sort();
+            second1.sort();
+            first1.merge(second1);
+            std::cout << "Size first after merge = " << first1.size() << "\n";
+            std::cout << "Value myList = ";
+            for (ft::list<double>::iterator it=first1.begin(); it!=first1.end(); ++it)
+                std::cout << ' ' << *it;
+            std::cout << '\n';
+
+            second1.push_back (2.1);
+            first1.merge(second1,mycomparison);
+
+            std::cout << "Size first after merge compare = " << first1.size() << "\n";
+            std::cout << "Value myList = ";
+            for (ft::list<double>::iterator it=first1.begin(); it!=first1.end(); ++it)
+                std::cout << ' ' << *it;
+            std::cout << '\n';
+
+
             std::cout << Y"\nOriginal sort, merge and reverse\n"D;
+
 
             std::list<std::string> origList;
             origList.push_back("one");
@@ -1194,27 +1213,128 @@ int main () {
             }
             std::cout << "\n";
 
+            std::list<std::string> origList2;
+            origList2.push_back("hello");
+            origList2.push_back("world");
+            origList2.push_back("school");
+            origList2.push_back("21");
 
+            origList.sort();
+            origList2.sort();
+            origList.merge(origList2);
+            itSt0 = origList.begin();
+            itFin0 = origList.end();
+            std::cout << "Size origList after merge = " << origList.size() << "\n";
+            std::cout << "Value origList = ";
+            while (itSt0 != itFin0) {
+                std::cout << "|" << *itSt0 << "| ";
+                itSt0++;
+            }
+            std::cout << "\n";
 
+            itSt0 = origList2.begin();
+            itFin0 = origList2.end();
+            std::cout << "Size origList2 after merge = " << origList2.size() << "\n";
+            std::cout << "Value origList2 = ";
+            while (itSt0 != itFin0) {
+                std::cout << "|" << *itSt0 << "| ";
+                itSt0++;
+            }
+            std::cout << "\n";
 
+            origList2.push_back("22");
 
+            std::list<double> first, second;
+            first.push_back (3.1);
+            first.push_back (2.2);
+            first.push_back (2.9);
+
+            second.push_back (3.7);
+            second.push_back (7.1);
+            second.push_back (1.4);
+
+            first.sort();
+            second.sort();
+            first.merge(second);
+            std::cout << "Size first after merge  = " << first.size() << "\n";
+            std::cout << "Value origList = ";
+            for (std::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+                std::cout << ' ' << *it;
+            std::cout << '\n';
+            second.push_back (2.1);
+            first.merge(second,mycomparison);
+
+            std::cout << "Size first after merge compare = " << first.size() << "\n";
+            std::cout << "Value origList = ";
+            for (std::list<double>::iterator it=first.begin(); it!=first.end(); ++it)
+                std::cout << ' ' << *it;
+            std::cout << '\n';
         }
 
+        {
+            {
+                std::cout <<Y "My non-member function\n" D;
+
+                ft::list<char> myList1(3,'3');
+                ft::list<char> myList2(3,'a');
+                std::cout << "'==' = " << (myList1 == myList2) << "\n";
+                std::cout << "'!=' = " << (myList1 != myList2) << "\n";
+                std::cout << "'>' = " << (myList1 > myList2) << "\n";
+                std::cout << "'>=' = " << (myList1 >= myList2) << "\n";
+                std::cout << "'<' = " << (myList1 < myList2) << "\n";
+                std::cout << "'<=' = " << (myList1 == myList2) << "\n";
+                myList1.swap(myList2);
+                ft::list<char>::iterator itSt = myList1.begin();
+                ft::list<char>::iterator itFin = myList1.end();
+                std::cout << "Size myList after sort= " << myList1.size() << "\n";
+                std::cout << "Value myList1 = ";
+                while (itSt != itFin) {
+                    std::cout << "|" << *itSt << "| ";
+                    itSt++;
+                }
+                std::cout << "\n";
+                itSt = myList2.begin();
+                itFin = myList2.end();
+                std::cout << "Value myList2 = ";
+                while (itSt != itFin) {
+                    std::cout << "|" << *itSt << "| ";
+                    itSt++;
+                }
+                std::cout << "\n";
 
 
 
+                std::cout <<Y "Original non-member function\n" D;
 
+                std::list<char> origList1(3,'3');
+                std::list<char> origList2(3,'a');
+                std::cout << "'==' = " << (origList1 == origList2) << "\n";
+                std::cout << "'!=' = " << (origList1 != origList2) << "\n";
+                std::cout << "'>' = " << (origList1 > origList2) << "\n";
+                std::cout << "'>=' = " << (origList1 >= origList2) << "\n";
+                std::cout << "'<' = " << (origList1 < origList2) << "\n";
+                std::cout << "'<=' = " << (origList1 == origList2) << "\n";
+                origList1.swap(origList2);
+                std::list<char>::iterator itSt0 = origList1.begin();
+                std::list<char>::iterator itFin0 = origList1.end();
+                std::cout << "Size origList after sort= " << origList1.size() << "\n";
+                std::cout << "Value origList = ";
+                while (itSt0 != itFin0) {
+                    std::cout << "|" << *itSt0 << "| ";
+                    itSt0++;
+                }
+                std::cout << "\n";
 
-
-
-
-
-
-
-
-
-
-
+                itSt0 = origList2.begin();
+                itFin0 = origList2.end();
+                std::cout << "Value origList2 = ";
+                while (itSt0 != itFin0) {
+                    std::cout << "|" << *itSt0 << "| ";
+                    itSt0++;
+                }
+                std::cout << "\n";
+            }
+        }
     }
     catch(const char * e)
     {
