@@ -29,7 +29,7 @@ int     main() {
             std::cout << "size of fourth: " << fourth1.size() << '\n';
 
 
-            std::cout << Y"Original constructor\n"D;
+            std::cout << Y"\nOriginal constructor\n"D;
 
             std::deque<int> origdeque (3,100);          // deque with 3 elements
             std::vector<int> origvector (2,200);        // vector with 2 elements
