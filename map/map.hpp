@@ -28,8 +28,8 @@
 			typedef const T *const_pointer;
 
 			typedef mapIterator<key_type, mapped_type> iterator;
-			//    typedef ReverseMapIterator<key_type, mapped_type> reverse_iterator;
-			//    typedef ConstMapIterator<key_type, mapped_type> const_iterator;
+//			typedef ReverseMapIterator<key_type, mapped_type> reverse_iterator;
+			typedef constmapIterator<key_type, mapped_type> const_iterator;
 			//    typedef ConstReverseMapIterator<key_type, mapped_type> const_reverse_iterator;
 			typedef ft::Node<key_type, mapped_type> node;
 			typedef ft::Node<key_type, mapped_type> *nodeptr;
@@ -46,9 +46,9 @@
 			key_compare _compare;
 			size_type _size;
 			nodeptr _root;
-			nodeptr _begin;
+			nodeptr *_begin;
 			nodeptr _tmp;
-			nodeptr _end;
+			nodeptr *_end;
 
 
 		public:
@@ -65,11 +65,18 @@
 			map(InputIterator first, InputIterator last,
 			    const key_compare &comp = key_compare(),
 			    const allocator_type &alloc = allocator_type()) {
-
+				while (first != last) {
+					insert(*first);
+					++first;
+				}
 			}
 
 			map(const map &x) {
-
+				this->_size = 0;
+				this->_root = nullptr;
+				const_iterator st = x.begin();
+				const_iterator fin = x.end();
+				insert(st, fin);
 			}
 
 
@@ -77,14 +84,55 @@
 
 			}
 
-			map &operator=(const map &x);
+			map &operator=(const map &x) {
+				if (this == &x)
+					return (*this);
+				this->_size = 0;
+				this->_root = nullptr;
+				const_iterator st = x.begin();
+				const_iterator fin = x.end();
+				insert(st, fin);
+				return (*this);
+			}
 
-			//    iterator begin();
-			//    const_iterator begin() const;
-			//    iterator end();
-			//    const_iterator end() const;
+			    iterator begin() {
+				    nodeptr n = _root;
+				    if (!n->left && !n->right)
+					    return (n);
+				    while (n->left)
+					    n = n->left;
+				    return (iterator(n));
+			    }
+
+			    iterator end() {
+					nodeptr n = _root;
+					if (!n->left && !n->right)
+						return (n);
+					while (n->right)
+						n = n->right;
+					return (iterator(n->right));
+			    }
+			    const_iterator end() const{
+				    nodeptr n = _root;
+				    if (!n->left && !n->right)
+					    return (n);
+				    while (n->right)
+					    n = n->right;
+				    return (const_iterator(n->right));
+			    }
+
+				const_iterator begin() const {
+					nodeptr n = _root;
+					if (!n->left && !n->right)
+						return (n);
+					while (n->left)
+						n = n->left;
+					return (const_iterator(n));
+			    }
+
 			//    reverse_iterator rbegin();
 			//    const_reverse_iterator rbegin() const;
+
 			//    reverse_iterator rend();
 			//    const_reverse_iterator rend() const;
 
@@ -107,7 +155,10 @@
 
 			/************ Element access *********/
 
-			mapped_type &operator[](const key_type &k);
+			mapped_type &operator[](const key_type &k){
+
+				// At first need make method find
+			}
 
 
 			/************* Modifiers *************/
@@ -135,7 +186,8 @@
 			{
 				node* par = q->parent;
 				node* p = q->left;
-
+				q->parent = p;
+				p->parent = par;
 				q->left = p->right;     // need Parent
 				p->right = q;
 				fixheight(q);
@@ -147,10 +199,11 @@
 			{
 				node* par = q->parent;
 				node* p = q->right;
-				q->right = p->left;
-				p->left = q;
 				q->parent = p;
 				p->parent = par;
+				q->right = p->left;
+				p->left = q;
+
 				fixheight(q);
 				fixheight(p);
 				return p;
@@ -176,27 +229,6 @@
 				return p; // балансировка не нужна
 			}
 
-//			node * Insert(key_type x, mapped_type val) {
-//				Node<key_type, mapped_type>** cur = &_root;
-//				while (*cur) {
-//					Node<key_type, mapped_type>& pode = **cur;
-//					if (x < pode.date.first) {
-//						pode.height++;
-//						cur = &pode.left;
-//					} else if (x > pode.date.first) {
-//						pode.height++;
-//						cur = &pode.right;
-//					} else {
-//						return *cur;
-//					}
-//				}
-//				*cur = new Node<key_type, mapped_type>(x, val);
-//				_size++;
-//				if (_root->left && _root->right)
-//					_root->height =  (_root->left->height > _root->right->height) ?_root->left->height + 1 : _root->right->height + 1;
-//
-//				return balance(*cur);
-//			}
 
 			node* Insert(node* p, int k, mapped_type val) // подшаманить
 			{
@@ -204,8 +236,9 @@
 					_root = new node(k, val);
 					++_size;
 					_root->height++;
-					_begin = _root;
-					_end = _root;
+					_begin = &_root;
+					_end = &_root;
+					_tmp = _root;
 					return _root;
 
 				}
@@ -213,35 +246,40 @@
 					_size++;
 
 					node* newNode = new node(k, val);
-					if (_begin->date.first > k)
-						_begin = newNode;
-					if (_end->date.first < k)
-						_end = newNode;
+//					if ((*_begin)->date.first > k)
+//						_begin = &newNode;
+//					if ((*_end)->date.first < k)
+//						_end = &newNode;
 					_tmp = newNode;
 					return newNode;
 				}
 				if( k < p->date.first) {
 					p->left = Insert(p->left, k, val);
 					p->left->parent = p;
+					//std::cout << "left\n";
+				}
+				else if (k == p->date.first) {
+					return _tmp;
 				}
 				else {
 					p->right = Insert(p->right, k, val);
 					p->right->parent = p;
+					//std::cout << "right\n";
 				}
 				nodeptr tmp = balance(p);
 				return tmp;
 			}
 
 
-
-			    std::pair<iterator, bool> insert (const value_type& val) {
-						size_t t = _size;
-				        _root = Insert(_root, val.first, val.second);
-						node *tmp = _root;
-					    std::pair<iterator, bool> ret = std::make_pair(iterator(_tmp), t != _size);
-			    		return (ret);
-			    		// исправить возвращаемое значение
-			    }
+			std::pair<iterator, bool> insert (const value_type& val) {
+				size_t t = _size;
+			    _root = Insert(_root, val.first, val.second);
+				node *tmp = _root;
+			    std::pair<iterator, bool> ret = std::make_pair(iterator (_tmp), t != _size);
+//			    std::cout << "t = " << t << "size = " << _size << "\n";
+				return (ret);
+					// исправить возвращаемое значение
+			}
 
 
 //				node *newNode(key_type key, mapped_type val) {
@@ -253,10 +291,19 @@
 //					return _newNode;
 //				}
 
-			//    iterator insert (iterator position, const value_type& val);
+			iterator insert (iterator position, const value_type& val){
+
+
+
+			}
 
 			template<class InputIterator>
-			void insert(InputIterator first, InputIterator last);
+			void insert(InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
+				while (first != last) {
+					insert(*first);
+					++first;
+				}
+			}
 
 
 			//    void erase (iterator position);
@@ -315,5 +362,27 @@
 
 	}
 
+
+//			node * Insert(key_type x, mapped_type val) {
+//				Node<key_type, mapped_type>** cur = &_root;
+//				while (*cur) {
+//					Node<key_type, mapped_type>& pode = **cur;
+//					if (x < pode.date.first) {
+//						pode.height++;
+//						cur = &pode.left;
+//					} else if (x > pode.date.first) {
+//						pode.height++;
+//						cur = &pode.right;
+//					} else {
+//						return *cur;
+//					}
+//				}
+//				*cur = new Node<key_type, mapped_type>(x, val);
+//				_size++;
+//				if (_root->left && _root->right)
+//					_root->height =  (_root->left->height > _root->right->height) ?_root->left->height + 1 : _root->right->height + 1;
+//
+//				return balance(*cur);
+//			}
 
 #endif /*MAP_HPP*/
