@@ -24,6 +24,8 @@ int     main() {
 				ret = myMap.insert ( std::pair<int,int>(6,6) );
 				ret = myMap.insert ( std::pair<int,int>(7,7) );
 				ret = myMap.insert ( std::pair<int,int>(8,8) );
+				ret = myMap.insert ( std::pair<int,int>(12,12) );
+				ret = myMap.insert ( std::pair<int,int>(15,15) );
 
 
 

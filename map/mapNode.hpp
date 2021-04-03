@@ -10,14 +10,15 @@ namespace ft {
 
     public:
         std::pair<Key, T> date;
+        unsigned char height;
         Node *left;
         Node *right;
         Node *parent;
-	    Node *begin;
+//	    Node *begin;
 
 
         explicit Node(const Key &key = Key(), const T &val = T()) :
-        left(nullptr), right(nullptr), parent(nullptr), begin(nullptr)    {
+        left(nullptr), right(nullptr), parent(nullptr), height(1)    {
         	date = std::make_pair(key, val);
         }
 

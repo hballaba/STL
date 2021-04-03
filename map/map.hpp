@@ -47,6 +47,7 @@
 			size_type _size;
 			nodeptr _root;
 			nodeptr _begin;
+			nodeptr _tmp;
 			nodeptr _end;
 
 
@@ -111,48 +112,146 @@
 
 			/************* Modifiers *************/
 
-			node * Insert(key_type x, mapped_type val) {
-				Node<key_type, mapped_type>** cur = &_root;
-				while (*cur) {
-					Node<key_type, mapped_type>& pode = **cur;
-					if (x < pode.date.first) {
-						cur = &pode.left;
-					} else if (x > pode.date.first) {
-//						if (x ) {
-//							std::cout << "pup\n";
-//
-//
-//						}
-						cur = &pode.right;
-					} else {
-						return *cur;
-					}
-				}
-				*cur = new Node<key_type, mapped_type>(x, val);
-				_size++;
+			unsigned char height(node* p)
+			{
+				unsigned char i =p?p->height:0;
+				return i;
+			}
 
-				return *cur;
+			int bfactor(node* p)
+			{
+				int i =  height(p->right)-height(p->left);
+				return i;
+			}
+
+			void fixheight(node* p)
+			{
+				unsigned char hl = height(p->left);
+				unsigned char hr = height(p->right);
+				p->height = (hl>hr?hl:hr)+1;
+			}
+
+			node* rotateright(node* q) // правый поворот вокруг p
+			{
+				node* par = q->parent;
+				node* p = q->left;
+
+				q->left = p->right;     // need Parent
+				p->right = q;
+				fixheight(q);
+				fixheight(p);
+				return p;
+			}
+
+			node* rotateleft(node* q) // левый поворот вокруг q
+			{
+				node* par = q->parent;
+				node* p = q->right;
+				q->right = p->left;
+				p->left = q;
+				q->parent = p;
+				p->parent = par;
+				fixheight(q);
+				fixheight(p);
+				return p;
+			}
+			node* balance(node* p) // балансировка узла p
+			{
+				nodeptr tmp;
+				fixheight(p);
+				if( bfactor(p)== 2 )
+				{
+					if( bfactor(p->right) < 0 )
+						p->right = rotateright(p->right);
+					tmp = rotateleft(p);
+					return tmp;
+				}
+				if( bfactor(p)== -2 )
+				{
+					if( bfactor(p->left) > 0  )
+						p->left = rotateleft(p->left);
+					tmp = rotateright(p);
+					return tmp;
+				}
+				return p; // балансировка не нужна
+			}
+
+//			node * Insert(key_type x, mapped_type val) {
+//				Node<key_type, mapped_type>** cur = &_root;
+//				while (*cur) {
+//					Node<key_type, mapped_type>& pode = **cur;
+//					if (x < pode.date.first) {
+//						pode.height++;
+//						cur = &pode.left;
+//					} else if (x > pode.date.first) {
+//						pode.height++;
+//						cur = &pode.right;
+//					} else {
+//						return *cur;
+//					}
+//				}
+//				*cur = new Node<key_type, mapped_type>(x, val);
+//				_size++;
+//				if (_root->left && _root->right)
+//					_root->height =  (_root->left->height > _root->right->height) ?_root->left->height + 1 : _root->right->height + 1;
+//
+//				return balance(*cur);
+//			}
+
+			node* Insert(node* p, int k, mapped_type val) // подшаманить
+			{
+				if( _size == 0 ) {
+					_root = new node(k, val);
+					++_size;
+					_root->height++;
+					_begin = _root;
+					_end = _root;
+					return _root;
+
+				}
+				if( !p ) {
+					_size++;
+
+					node* newNode = new node(k, val);
+					if (_begin->date.first > k)
+						_begin = newNode;
+					if (_end->date.first < k)
+						_end = newNode;
+					_tmp = newNode;
+					return newNode;
+				}
+				if( k < p->date.first) {
+					p->left = Insert(p->left, k, val);
+					p->left->parent = p;
+				}
+				else {
+					p->right = Insert(p->right, k, val);
+					p->right->parent = p;
+				}
+				nodeptr tmp = balance(p);
+				return tmp;
 			}
 
 
-			    std::pair<iterator, bool> insert (const value_type& val){
-			    	std::cout << "tyt\n";
-						size_t t = _size;
-				        nodeptr tmp = Insert(val.first, val.second);
 
-					    std::pair<iterator, bool> ret = std::make_pair(iterator(tmp), t != _size);
+			    std::pair<iterator, bool> insert (const value_type& val) {
+						size_t t = _size;
+				        _root = Insert(_root, val.first, val.second);
+						node *tmp = _root;
+					    std::pair<iterator, bool> ret = std::make_pair(iterator(_tmp), t != _size);
 			    		return (ret);
+			    		// исправить возвращаемое значение
 			    }
 
 
-				node *newNode(key_type key, mapped_type val) {
-					nodeptr _newNode;
-					_newNode= new node(key, val);
-					_newNode->left = nullptr;
-					_newNode->right = nullptr;
-					_newNode->parent = nullptr;
-					return _newNode;
-				}
+//				node *newNode(key_type key, mapped_type val) {
+//					nodeptr _newNode;
+//					_newNode= new node(key, val);
+//					_newNode->left = nullptr;
+//					_newNode->right = nullptr;
+//					_newNode->parent = nullptr;
+//					return _newNode;
+//				}
 
 			//    iterator insert (iterator position, const value_type& val);
 
