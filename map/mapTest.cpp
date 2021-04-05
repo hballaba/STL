@@ -409,48 +409,75 @@ int     main() {
 
 
 			std::cout << Y "my erase:\n" D;
-int i;
+			/****** erase  posision ***/
+
+			int i;
 			ft::map<int, int> er;
-			er[1] = 0;
-			er[2] = 0;
-			er[3] = 0;
-			er[4] = 0;
-			er[5] = 0;
-			er[6] = 0;
-			er[7] = 0;
-			er[8] = 0;
-			er[9] = 0;
-			er[10] = 0;
-			er[11] = 0;
-			er[12] = 0;
-//			er[13] = 0;
+			for (i = 1; i <= 559; i++ )
+				er[i] = 0;
 			i = 0;
+
 			ft::map<int, int>::iterator it = er.begin();
+
+			for (int a = 1; a != 4; a++)
+				it++;
+			std::cout << "Key = '" << it->first << "' \n";
+
+			er.erase(it);
+
+			it = er.begin();
 			for (size_t a = 0; a < er.size(); a++) {
 				std::cout << ++i << " Element: key = '" << it->first << "' \n";
-//				std::cout << "Value = " << it->second << "\n";
 				it++;
 			}
 
-			it = er.begin();
-			it++;
-			it++;
-			it++;
-//			it++;
-//			it++;
 		std::cout << "\n";
-//		          std::cout << ++i << " Element: key = '" << it->first << "' \n";
-			er.erase(it);
-			it = er.begin();
-			i = 0;
-			for (size_t a = 0; a < er.size(); a++) {
-				std::cout << ++i << " Element: key --= '" << it->first << "' \n";
-//				std::cout << "Value = " << it->second << "\n";
-				it++;
-			}
 
 
 
+
+
+
+			/********* erase key  ***********/
+//			for (size_t a = 0; a < er.size(); a=a) {
+//				it = er.begin();
+//				std::cout << ++i << " Element: key = '" << it->first << "' \n";
+//				er.erase(er.begin());
+//			}
+
+
+//			it = er.begin();
+//			it++;
+//			it++;
+//			it++;
+//			it++;
+//			it++;
+//		std::cout << "\n";
+//
+//			er.erase(5);
+//			it = er.begin();
+//			i = 0;
+//			for (size_t a = 0; a < er.size(); a++) {
+//				std::cout << ++i << " Element: key --= '" << it->first << "' \n";
+//				it++;
+//			}
+//		std::cout << "\n";
+
+
+			/***** erase iterators ****/
+//		it = er.begin();
+//		it++;
+//		it++;
+//		it++;
+//		er.erase(it, er.end());
+//
+//		it = er.begin();
+//		i = 0;
+//		for (size_t a = 0; a < er.size(); a++) {
+//			std::cout << ++i << " Element: key --= '" << it->first << "' \n";
+//			it++;
+//		}
+//		std::cout << "\n";
 
 
 			std::map<int, int> er1;
@@ -468,16 +495,16 @@ int i;
 //			er1[12] = 7;
 //			er1[13] = 7;
 
-			std::map<int, int>::iterator it1 = er1.begin();
-			it1++;
-			it1++;
-			it1++;
-			it1++;
-			it1++;
-
-			er1.erase(it1);
-			it1 = er1.begin();
-			i = 0;
+//			std::map<int, int>::iterator it1 = er1.begin();
+//			it1++;
+//			it1++;
+//			it1++;
+//			it1++;
+//			it1++;
+//
+//			er1.erase(it1);
+//			it1 = er1.begin();
+//			i = 0;
 //			while (it1 != er1.end()) {
 //				std::cout << ++i << " Element: key = '" << it1->first << "' ";
 //				std::cout << "Value = " << it1->second << "\n";

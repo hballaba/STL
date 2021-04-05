@@ -297,72 +297,77 @@
 				}
 			}
 
-			node* findmin(node* p)
+			node* findmax(node* p)
 			{
-//				if (p->left)
-//					return findmin(p->left);
-//				return p;
+				if (p->left)
+					return findmax(p->left);
+				return p;
 
 
-				return p->left?findmin(p->left):p;
+//				return p->left?findmax(p->left):p;
 			}
 
 			node* removemin(node* p)
 			{
 				if(!p->left)
-					return p->right;
+					return p->right  ;
 				p->left = removemin(p->left);
+//				p->right = removemin(p->left);
 				return balance(p);
 			}
 
-			node* remove(node* del, int k)
+			node* remove(node* del, key_type k)
 			{
 				if( !del )
 					return nullptr;
 				if( k < del->date.first) {
 					del->left = remove(del->left, k);
-
 				}
 				else if( k > del->date.first) {
 					del->right = remove(del->right, k);
-//					del->right->parent = del;
 				}
-				else { //  k == p->key
+				else {
 					node* left = del->left;
 					node* right = del->right;
 					node* parent = del->parent;
 					delete del;
 					_size--;
-					if( !right )
+					if( !right)
 						return left;
-					nodeptr min = findmin(right);
-//					nodeptr min = right;
-//					while (min->left)
-//						min= min->left;
-					min->right = removemin(right);
-					min->left = left;
-					if (left)
-						left->parent = min;
-					if (min-right)
-						min->right->parent = min;
-					if (min->left)
-						min->left->parent = min;
-
-					return balance(min);
+					nodeptr max = findmax(right);
+					nodeptr max_left = max->left;
+					max->right = removemin(right);
+					max->left = left;
+					if (right)
+						right->parent = max->right;
+					if (max_left)
+						max->left->parent = left;
+					if (max->right)
+						max->right->parent = max;
+//					if (right != max)
+//						right->left = max_left;
+					left->parent = max;
+					max->parent = parent;
+					return balance(max);
 				}
 				return balance(del);
 			}
+
+
 
 			void erase (iterator position) {
 				nodeptr del = position.getp();
 				if (!del)
 					return ;
+//				_root = _delete(_root, del->date.first);
 				_root = remove(_root, del->date.first);
 				_end = _begin =_root;
-				while (_end->right)
-					_end = _end->right;
-				while (_begin->left)
-					_begin = _begin->left;
+				if (_end)
+					while (_end->right)
+						_end = _end->right;
+				if (_begin)
+					while (_begin->left)
+						_begin = _begin->left;
 //				nodeptr del = position.getp();
 //				if (!del)
 //					return ;
@@ -388,9 +393,18 @@
 //				_size--;
 			}
 
-			size_type erase(const key_type &k);
+			size_type erase(const key_type &k) {
+					erase(find(k));
+				return (1);
+			}
 
-			//    void erase (iterator first, iterator last);
+			void erase (iterator first, iterator last) {
+				while (first != last) {
+					erase(first);
+					first++;
+					std::cout << "1";
+				}
+			}
 
 			void swap(map &x) {
 				map tmp(x);
