@@ -43,7 +43,7 @@
 
 		private:
 			allocator_type _alloc;
-			key_compare _compare;
+			key_compare _comp;
 			size_type _size;
 			nodeptr _root;
 			nodeptr _begin;
@@ -56,7 +56,7 @@
 			/************* Construct **************/
 			explicit map(const key_compare &comp = key_compare(),
 				const allocator_type &alloc = allocator_type()) :
-			    _size(0), _alloc(alloc), _root(nullptr), _compare(comp), _end(nullptr), _begin(nullptr) {
+			    _size(0), _alloc(alloc), _root(nullptr), _comp(comp), _end(nullptr), _begin(nullptr) {
 
 
 			}
@@ -346,7 +346,8 @@
 						max->right->parent = max;
 //					if (right != max)
 //						right->left = max_left;
-					left->parent = max;
+					if (left)
+						left->parent = max;
 					max->parent = parent;
 					return balance(max);
 				}
@@ -359,7 +360,6 @@
 				nodeptr del = position.getp();
 				if (!del)
 					return ;
-//				_root = _delete(_root, del->date.first);
 				_root = remove(_root, del->date.first);
 				_end = _begin =_root;
 				if (_end)
@@ -368,29 +368,6 @@
 				if (_begin)
 					while (_begin->left)
 						_begin = _begin->left;
-//				nodeptr del = position.getp();
-//				if (!del)
-//					return ;
-//				else if (!del->right && !del->left) {
-//					parent_nullptr(del, nullptr);
-//					delete del;
-//				}
-//				else if (!del->right && del->left) {  //there is left descendent
-//					parent_nullptr(del, del->left);
-//					delete del;
-//				}
-//				else if (del->right && !del->left) {  //there is left descendent
-//					parent_nullptr(del, del->right);
-//					delete del;
-//				}
-//				else {
-//					nodeptr next = (++iterator(del)).getp();
-//				}
-//
-//
-//
-//
-//				_size--;
 			}
 
 			size_type erase(const key_type &k) {
@@ -398,31 +375,42 @@
 				return (1);
 			}
 
-			void erase (iterator first, iterator last) {
+			void erase (iterator first, iterator last, char (*)[sizeof(*first)] = NULL) {
 				while (first != last) {
+//					erase(first++);
+					iterator tmp = first;
+					tmp++;
 					erase(first);
-					first++;
-					std::cout << "1";
+					first = tmp;
+
 				}
 			}
 
 			void swap(map &x) {
+//				nodeptr tmp;
 				map tmp(x);
 				x = *this;
 				*this = tmp;
+				int i;
+//				*this = tmp;
 			}
 
 
 			void clear() {
-
+				erase(begin(), end());
 			}
 
 
 			/************* Observers *************/
 
-			key_compare key_comp() const;
+			key_compare key_comp() const {
 
-			value_compare value_comp() const;
+				return (_comp);
+			}
+
+			value_compare value_comp() const {
+				return (this->value_compare);
+			}
 
 
 			/**************  Operations  ***************/
@@ -471,7 +459,12 @@
 			    }
 
 
-			size_type count(const key_type &k) const;
+			size_type count(const key_type &k) const{
+			    	iterator tmp = find(k);
+			    	if (!tmp)
+			    		return 0;
+			    	return 1;
+			    }
 
 			//    iterator lower_bound (const key_type& k);
 

@@ -407,143 +407,335 @@ int     main() {
 //				i++;
 //			}
 
-
-			std::cout << Y "my erase:\n" D;
+		{
 			/****** erase  posision ***/
 
-			int i;
-			ft::map<int, int> er;
-			for (i = 1; i <= 559; i++ )
-				er[i] = 0;
-			i = 0;
+			std::cout << Y "My erase posision:\n" D;
 
-			ft::map<int, int>::iterator it = er.begin();
+			int i;
+			ft::map<int, int> erase;
+			for (i = 1; i <= 21; i++)
+				erase[i] = i;
+
+
+			ft::map<int, int>::iterator it = erase.begin();
 
 			for (int a = 1; a != 4; a++)
 				it++;
-			std::cout << "Key = '" << it->first << "' \n";
-
-			er.erase(it);
-
-			it = er.begin();
-			for (size_t a = 0; a < er.size(); a++) {
-				std::cout << ++i << " Element: key = '" << it->first << "' \n";
+			std::cout << "Delete key = '" << it->first << "' \n";
+			erase.erase(it);
+			it = erase.begin();
+			i = 0;
+			for (size_t a = 0; a < erase.size(); a++) {
+				std::cout << ++i << " Element: key = '" << it->first << "' " "value = '" << it->second << "'\n";
 				it++;
 			}
-
-		std::cout << "\n";
-
+			std::cout << "\n";
 
 
+			std::cout << Y "Origin erase posision:\n" D;
 
 
+			std::map<int, int> erase1;
+			for (i = 1; i <= 21; i++)
+				erase1[i] = i;
+
+
+			std::map<int, int>::iterator it1 = erase1.begin();
+
+			for (int a = 1; a != 4; a++)
+				it1++;
+			std::cout << "Delete key = '" << it1->first << "' \n";
+			erase1.erase(it1);
+			it1 = erase1.begin();
+			i = 0;
+			for (size_t a = 0; a < erase.size(); a++) {
+				std::cout << ++i << " Element: key = '" << it1->first << "' " "value = '" << it1->second << "'\n";
+				it1++;
+			}
+			std::cout << "\n";
+
+		}
+
+		{
 
 			/********* erase key  ***********/
-//			for (size_t a = 0; a < er.size(); a=a) {
-//				it = er.begin();
-//				std::cout << ++i << " Element: key = '" << it->first << "' \n";
-//				er.erase(er.begin());
-//			}
 
 
-//			it = er.begin();
-//			it++;
-//			it++;
-//			it++;
-//			it++;
-//			it++;
-//		std::cout << "\n";
-//
-//			er.erase(5);
-//			it = er.begin();
-//			i = 0;
-//			for (size_t a = 0; a < er.size(); a++) {
-//				std::cout << ++i << " Element: key --= '" << it->first << "' \n";
-//				it++;
-//			}
-//		std::cout << "\n";
+			std::cout << Y "My erase key:\n" D;
+			int i;
+			ft::map<int, int> erase;
+			for (i = 1; i <= 15; i++)
+				erase[i] = i;
 
+			erase.erase(1);
+			erase.erase(14);
+			erase.erase(9);
+			erase.erase(10);
+
+			ft::map<int, int>::iterator it = erase.begin();
+			i = 0;
+			std::cout << "Delete key = |1, 14, 9, 10|\n";
+			while (it != erase.end()) {
+				std::cout << ++i << " Element: key = '" << it->first << "' " "value = '" << it->second << "'\n";
+				it++;
+			}
+			std::cout << "\n";
+
+
+			std::cout << Y "Original erase key:\n" D;
+
+			std::map<int, int> erase1;
+			for (i = 1; i <= 15; i++)
+				erase1[i] = i;
+
+
+			erase1.erase(1);
+			erase1.erase(14);
+			erase1.erase(9);
+			erase1.erase(10);
+
+			std::map<int, int>::iterator it1 = erase1.begin();
+			i = 0;
+			std::cout << "Delete key = |1, 14, 9, 10|\n";
+			while (it1 != erase1.end()) {
+				std::cout << ++i << " Element: key = '" << it1->first << "' " "value = '" << it1->second << "'\n";
+				it1++;
+			}
+			std::cout << "\n";
+
+		}
+
+		{
 
 			/***** erase iterators ****/
-//		it = er.begin();
-//		it++;
-//		it++;
-//		it++;
-//		er.erase(it, er.end());
-//
-//		it = er.begin();
-//		i = 0;
-//		for (size_t a = 0; a < er.size(); a++) {
-//			std::cout << ++i << " Element: key --= '" << it->first << "' \n";
-//			it++;
-//		}
-//		std::cout << "\n";
+			std::cout << Y "My erase iterators:\n" D;
+
+			int i;
+			ft::map<int, int> erase;
+			for (i = 1; i <= 10; i++)
+				erase[i] = i;
+			ft::map<int, int>::iterator it;
+			ft::map<int, int>::iterator fin;
+
+			it = erase.find(3);
+			fin = erase.find(8);
+			std::cout << "Delete key from 3 to 8\n";
+
+			erase.erase(it, fin);
+
+			it = erase.begin();
+			fin = erase.end();
+			i = 0;
+
+			while (it != fin) {
+				std::cout << ++i << " Element: key = '" << it->first << "' " "value = '" << it->second << "'\n";
+				it++;
+			}
+			std::cout << "\n";
 
 
-			std::map<int, int> er1;
-			er1[1] = 1;
-			er1[2] = 2;
-			er1[3] = 3;
-			er1[4] = 4;
-			er1[5] = 5;
-			er1[6] = 6;
-			er1[7] = 7;
-			er1[8] = 7;
-			er1[9] = 7;
-			er1[10] = 7;
-			er1[11] = 7;
-//			er1[12] = 7;
-//			er1[13] = 7;
+			std::cout << Y "Original erase iterators:\n" D;
 
-//			std::map<int, int>::iterator it1 = er1.begin();
-//			it1++;
-//			it1++;
-//			it1++;
-//			it1++;
-//			it1++;
-//
-//			er1.erase(it1);
-//			it1 = er1.begin();
-//			i = 0;
-//			while (it1 != er1.end()) {
-//				std::cout << ++i << " Element: key = '" << it1->first << "' ";
-//				std::cout << "Value = " << it1->second << "\n";
-//				it1++;
-//			}
+			std::map<int, int> erase1;
+			for (i = 1; i <= 10; i++)
+				erase1[i] = i;
+
+			std::map<int, int>::iterator it1;
+			std::map<int, int>::iterator fin1;
+
+			it1 = erase1.find(3);
+			fin1 = erase1.find(8);
+			std::cout << "Delete key from 3 to 8\n";
+
+			erase1.erase(it1, fin1);
+
+			it1 = erase1.begin();
+			fin1 = erase1.end();
+			i = 0;
+
+			while (it1 != fin1) {
+				std::cout << ++i << " Element: key = '" << it1->first << "' " "value = '" << it1->second << "'\n";
+				it1++;
+			}
+			std::cout << "\n";
+
+		}
+
+		{
+
+			std::cout << Y "My swap:\n" D;
+
+			ft::map<char, std::string> myMap;
+			ft::map<char, std::string> myMap2;
+
+			myMap['*'] = "myMap";
+			myMap['H'] = "HELLO";
+			myMap['P'] = "PEER";
+
+			myMap2['*'] = "myMap2";
+			myMap2['S'] = "SCOOL";
+			myMap2['2'] = "21 KAZAN";
+
+			myMap.swap(myMap2);
+
+			ft::map<char, std::string>::iterator myIT;
+			ft::map<char, std::string>::iterator myIT2;
+
+			std::cout << "myMap \n";
+			myIT = myMap.begin();
+			myIT2 = myMap.end();
+			int i = 0;
+			while (myIT != myIT2) {
+				std::cout << ++i << " Element: key = '" << myIT->first << "' " "value = '" << myIT->second << "'\n";
+				myIT++;
+			}
+			std::cout << "\n";
+
+			std::cout << "myMap2 \n";
+			myIT = myMap2.begin();
+			myIT2 = myMap2.end();
+			i = 0;
+			while (myIT != myIT2) {
+				std::cout << ++i << " Element: key = '" << myIT->first << "' " "value = '" << myIT->second << "'\n";
+				myIT++;
+			}
+			std::cout << "\n";
 
 
 
 
-//			myMap2.erase(myMap2.begin());
-//			myMap2.erase(myMap2.begin());
-//			myIT = myMap2.begin();
-//			i = 1;
-//			std::cout << "\nMyMap2 size after erase position = " << myMap2.size() << "\n";
-//			while (myIT != myMap2.end()) {
-//				std::cout << i << " Element: key = '" << myIT->first << "' ";
-//				std::cout << "Value = " << myIT->second << "\n";
-//				myIT++;
-//				i++;
-//			}
+			std::cout << Y "Original swap:\n" D;
+
+			std::map<char, std::string> origMap;
+			std::map<char, std::string> origMap2;
+
+			origMap['*'] = "origMap";
+			origMap['H'] = "HELLO";
+			origMap['P'] = "PEER";
+
+			origMap2['*'] = "origMap2";
+			origMap2['S'] = "SCOOL";
+			origMap2['2'] = "21 KAZAN";
+
+			origMap.swap(origMap2);
+
+			std::map<char, std::string>::iterator origIT;
+			std::map<char, std::string>::iterator origIT2;
+
+			std::cout << "origMap \n";
+			origIT = origMap.begin();
+			origIT2 = origMap.end();
+			i = 0;
+			while (origIT != origIT2) {
+				std::cout << ++i << " Element: key = '" << origIT->first << "' " "value = '" << origIT->second << "'\n";
+				origIT++;
+			}
+			std::cout << "\n";
+
+			std::cout << "origMap2 \n";
+			origIT = origMap2.begin();
+			origIT2 = origMap2.end();
+			i = 0;
+			while (origIT != origIT2) {
+				std::cout << ++i << " Element: key = '" << origIT->first << "' " "value = '" << origIT->second << "'\n";
+				origIT++;
+			}
+			std::cout << "\n";
 
 
-//			std::cout << Y "Original erase:\n" D;
-//
-//
-//			origMap2.erase(origMap2.begin());
-//			origMap2.erase(origMap2.begin());
-//			origIT = origMap2.begin();
-//			i = 1;
-//			std::cout << "\nOrigMap2 size after erase position = " << origMap2.size() << "\n";
-//			while (origIT != origMap2.end()) {
-//				std::cout << i << " Element: key = '" << origIT->first << "' ";
-//				std::cout << "Value = " << origIT->second << "\n";
-//				origIT++;
-//				i++;
-//			}
+			std::cout << Y "My clear:\n" D;
+
+			myMap.clear();
+			myMap2.clear();
+			std::cout << "Size myMap = " << myMap.size() << ", myMap empty = " << myMap.empty() << "\n";
+			std::cout << "Size myMap2 = " << myMap2.size() << ", myMap2 empty = " << myMap2.empty() << "\n";
+
+
+			std::cout << Y "orig clear:\n" D;
+
+			origMap.clear();
+			origMap2.clear();
+			std::cout << "Size origMap = " << origMap.size() << ", origMap empty = " << origMap.empty() << "\n";
+			std::cout << "Size origMap2 = " << origMap2.size() << ", origMap2 empty = " << origMap2.empty() << "\n";
+
+		}
+
+			/********** Observers ***************/
+		{
+
+			std::cout << Y"\nMy observers\n"D;
+
+
+			ft::map<char,int> mymap;
+
+			ft::map<char,int>::key_compare mycomp = mymap.key_comp();
+
+
+			mymap['a']=100;
+			mymap['b']=200;
+			mymap['c']=300;
+
+			std::cout << "mymap contains:\n";
+
+			char highest = mymap.rbegin()->first;     // key value of last element
+
+			ft::map<char,int>::iterator it = mymap.begin();
+			do {
+				std::cout << it->first << " => " << it->second << '\n';
+			} while ( mycomp((*it++).first, highest) );
+
+			std::cout << '\n';
 
 
 
+			std::cout << Y"\nOriginal observers\n"D;
+
+
+			std::map<char,int> origMap;
+
+			std::map<char,int>::key_compare mycomp1 = origMap.key_comp();
+
+
+			origMap['a']=100;
+			origMap['b']=200;
+			origMap['c']=300;
+
+			std::cout << "origMap contains:\n";
+
+			char highest1 = origMap.rbegin()->first;     // key value of last element
+
+			std::map<char,int>::iterator it1 = origMap.begin();
+			do {
+				std::cout << it1->first << " => " << it1->second << '\n';
+			} while ( mycomp1((*it1++).first, highest1) );
+
+			std::cout << '\n';
+			origMap.clear();
+
+
+
+
+
+			origMap['x']=1001;
+			origMap['y']=2002;
+			origMap['z']=3003;
+
+			std::cout << "origMap contains:\n";
+
+			std::pair<char,int> origHighest = *mymap.rbegin(); // last element
+
+			it1 = origMap.begin();
+			do {
+				std::cout << it1->first << " => " << it1->second << '\n';
+			} while ( origMap.value_comp()(*it1++, origHighest) );
+
+
+
+
+
+
+		}
 
 
 			/****** OPERATION  ********/
