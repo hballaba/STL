@@ -49,15 +49,13 @@ int main () {
             std::cout << "Back element = " << myListElement.back() << "\n";
 
             myListElement.push_back('Z');
-            ft::list<char>::iterator myIT = myListElement.begin();
-            ft::list<char>::iterator myITend = myListElement.end();
-            ft::list<char> myinalIterator(myIT, myITend);
+            ft::list<char> myinalIterator(myListElement.begin(), myListElement.end());
             std::cout << "Construct with iterator, size = " << myinalIterator.size() << "\n";
             std::cout << "Front element = " << myinalIterator.front() << "\n";
             std::cout << "Back element = " << myinalIterator.back() << "\n";
 
 
-           std::cout << Y"Original constructor\n" << D;
+            std::cout << Y"\nOriginal constructor\n" << D;
 
             std::list<int> origListDefault;
             std::cout << "Default construct, size = " << origListDefault.size() << "\n";
@@ -72,8 +70,7 @@ int main () {
            std::cout << "Back element = " << origListElement.back() << "\n";
 
            origListElement.push_back('Z');
-           std::list<char>::iterator origIT = origListElement.begin();
-           std::list<char> originalIterator(origIT, origListElement.end());
+           std::list<char> originalIterator(origListElement.begin(), origListElement.end());
            std::cout << "Construct with iterator, size = " << originalIterator.size() << "\n";
            std::cout << "Front element = " << originalIterator.front() << "\n";
            std::cout << "Back element = " << originalIterator.back() << "\n";
@@ -104,7 +101,7 @@ int main () {
             std::cout << "\n";
 
 
-           std::cout << Y "Original construct copy and operator '='\n" D;
+           std::cout << Y "\nOriginal construct copy and operator '='\n" D;
 
            std::list<int> origList;
            for (int i = 0; i < 5; i++)
@@ -153,7 +150,7 @@ int main () {
                 myITReverse++;
             }
 
-            std::cout <<Y "Original iterator\n" D;
+            std::cout <<Y "\nOriginal iterator\n" D;
 
 
            std::list<int>::iterator originalIT;
@@ -182,7 +179,7 @@ int main () {
          /**********	Capacity **********/
  
         {
-            std::cout <<Y "My capasity\n" D;
+            std::cout <<Y "\nMy capasity\n" D;
 
             ft::list<int> myList(5);
             std::cout << "Size = " << myList.size() << "\n";
@@ -210,12 +207,13 @@ int main () {
         /******* Element access ******/
 
         {
-                std::cout <<Y "My element access\n" D;
+                std::cout <<Y "\nMy element access\n" D;
 
                 ft::list<double> mylist;
                 for(double i = 1.1; i < 4; i += 1.1) {
                     mylist.push_back(i);
                 }
+                 std::cout << "Size = " << mylist.size() << "\n";
                 std::cout << "front = " << mylist.front() << '\n';
                 std::cout << "back = " << mylist.back() << '\n';
 
@@ -225,7 +223,8 @@ int main () {
                 std::list<double> origlist;
                 for(double i = 1.1; i < 4; i += 1.1) {
                     origlist.push_back(i);
-                }                   
+                }         
+                std::cout << "Size = " << origlist.size() << "\n";          
                 std::cout << "front = " << origlist.front() << '\n';
                 std::cout << "back = " << origlist.back() << '\n';
 
@@ -925,6 +924,7 @@ int main () {
                 myList.remove_if(single_digit);
                 itSt = myList.begin();
                 itFin = myList.end();
+                std::cout << "\nRemove if value single digital\n";
                 std::cout << "Size myList after remove_if = " << myList.size() << "\n";
                 std::cout << "Value myList = ";
                 while (itSt != itFin) {
@@ -964,6 +964,7 @@ int main () {
                 origList.remove_if(single_digit);
                 itSt0 = origList.begin();
                 itFin0 = origList.end();
+                std::cout << "\nRemove if value single digital\n";
                 std::cout << "Size origList after remove_if = " << origList.size() << "\n";
                 std::cout << "Value origList = ";
                 while (itSt0 != itFin0) {
@@ -1286,7 +1287,7 @@ int main () {
                 myList1.swap(myList2);
                 ft::list<char>::iterator itSt = myList1.begin();
                 ft::list<char>::iterator itFin = myList1.end();
-                std::cout << "Size myList after sort= " << myList1.size() << "\n";
+                std::cout << "Size myList after swap = " << myList1.size() << "\n";
                 std::cout << "Value myList1 = ";
                 while (itSt != itFin) {
                     std::cout << "|" << *itSt << "| ";
@@ -1317,7 +1318,7 @@ int main () {
                 origList1.swap(origList2);
                 std::list<char>::iterator itSt0 = origList1.begin();
                 std::list<char>::iterator itFin0 = origList1.end();
-                std::cout << "Size origList after sort= " << origList1.size() << "\n";
+                std::cout << "Size origList after swap = " << origList1.size() << "\n";
                 std::cout << "Value origList = ";
                 while (itSt0 != itFin0) {
                     std::cout << "|" << *itSt0 << "| ";
