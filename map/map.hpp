@@ -8,6 +8,8 @@
 
 	namespace ft {
 
+
+
 		template<class Key,                                     // map::key_type
 				class T,                                       // map::mapped_type
 				class Compare = std::less<Key>,                     // map::key_compare
@@ -36,14 +38,24 @@
 			typedef size_t size_type;
 
 			class value_compare {
-
-			};// возможно вынести в отдельый файл
-
+				friend class map;
+			protected:
+				Compare comp;
+				value_compare (Compare c) : comp(c) {}
+			public:
+				typedef bool result_type;
+				typedef value_type first_argument_type;
+				typedef value_type second_argument_type;
+				bool operator() (const value_type& x, const value_type& y) const {
+					return comp(x.first, y.first);
+				}
+			};
 
 
 		private:
 			allocator_type _alloc;
 			key_compare _comp;
+			value_compare	_valueCompare;
 			size_type _size;
 			nodeptr _root;
 			nodeptr _begin;
@@ -57,7 +69,7 @@
 			/************* Construct **************/
 			explicit map(const key_compare &comp = key_compare(),
 				const allocator_type &alloc = allocator_type()) :
-			    _size(0), _alloc(alloc), _root(nullptr), _comp(comp), _end(nullptr), _begin(nullptr) {
+			    _alloc(alloc), _comp(comp), _valueCompare(comp), _size(0), _root(nullptr), _begin(nullptr) , _end(nullptr) {
 				_end = new node();
 
 			}
@@ -65,7 +77,8 @@
 			template<class InputIterator>
 			map(InputIterator first, InputIterator last,
 			    const key_compare &comp = key_compare(),
-			    const allocator_type &alloc = allocator_type()) {
+			    const allocator_type &alloc = allocator_type()) :
+					_alloc(alloc), _comp(comp), _valueCompare(comp), _size(0), _root(nullptr), _begin(nullptr) , _end(nullptr) {
 				_end = new node();
 				while (first != last) {
 					insert(*first);
@@ -73,7 +86,7 @@
 				}
 			}
 
-			map(const map &x) {
+			map(const map &x) :_alloc(x._alloc), _comp(x._comp), _valueCompare(x._valueCompare) {
 				this->_size = 0;
 				this->_root = nullptr;
 				_end = new node();
@@ -282,6 +295,8 @@
 			}
 
 			iterator insert (iterator position, const value_type& val) {
+				if (position.getp())
+					;
 				std::pair<iterator,bool> ret;
 				ret = insert(val);
 				return ret.first;
@@ -379,12 +394,9 @@
 			}
 
 			void swap(map &x) {
-//				nodeptr tmp;
 				map tmp(x);
 				x = *this;
 				*this = tmp;
-				int i;
-//				*this = tmp;
 			}
 
 
@@ -401,7 +413,7 @@
 			}
 
 			value_compare value_comp() const {
-				return (this->value_compare);
+				return (_valueCompare);
 			}
 
 

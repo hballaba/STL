@@ -701,20 +701,17 @@ int     main() {
 
 			myMap.clear();
 
-
 			myMap['x'] = 1001;
 			myMap['y'] = 2002;
 			myMap['z'] = 3003;
-//			myMap['z']=3003;
 
 			std::cout << "myMap contains:\n";
 
 			std::pair<char, int> myHighest = *myMap.rbegin(); // last element
-
 			it = myMap.begin();
-//			do {
-//				std::cout << it->first << " => " << it->second << '\n';
-//			} while ( myMap.value_comp()(*it++, highest) );
+			do {
+				std::cout << it->first << " => " << it->second << '\n';
+			} while ( myMap.value_comp()(*it++, myHighest) );
 
 
 

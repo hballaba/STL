@@ -18,7 +18,7 @@ namespace ft {
 
 
         explicit Node(const Key &key = Key(), const T &val = T()) :
-        left(nullptr), right(nullptr), parent(nullptr), height(1)    {
+		        height(1), left(nullptr), right(nullptr), parent(nullptr)  {
         	date = std::make_pair(key, val);
         }
 
