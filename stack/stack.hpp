@@ -87,6 +87,3 @@ namespace ft {
 }
 
 #endif /*STACK*/
-
-
-

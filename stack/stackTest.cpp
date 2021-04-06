@@ -60,7 +60,7 @@ int     main() {
             std::cout << "myStack empty = " << myStack.empty() << std::endl;
             std::cout << "size of myStack: " << myStack.size() << '\n';
             std::cout << "top =  " << myStack.top() << '\n';
-            myStack.top() += 5;
+            myStack.top() += 5;   //change top element + 5 
             std::cout << "top =  " << myStack.top() << '\n';
             myStack.pop();
             std::cout << "After metod pop\n";
