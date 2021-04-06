@@ -31,7 +31,7 @@ int     main() {
 				std::cout << "Key = " << ret.first->first << " ,";
 				std::cout << "value = " << ret.first->second << "\n";
 				std::cout << "New key = " << ret.second << "\n";
-				std::cout << "MyMap size after two insert= " << myMap.size() << "\n";
+				std::cout << "MyMap size after two insert= " << myMap.size() << "\n\n";
 
 				myMap.insert ( std::pair<int,int>(9,2) );
 				myMap.insert ( std::pair<int,int>(10,6) );
@@ -71,7 +71,7 @@ int     main() {
 				std::cout << "Key = " << ret1.first->first << " ,";
 				std::cout << "value = " << ret1.first->second << "\n";
 				std::cout << "New key = " << ret1.second << "\n";
-				std::cout << "OrigMap size after two insert = " << origMap.size() << "\n";
+				std::cout << "OrigMap size after two insert = " << origMap.size() << "\n\n";
 
 				origMap.insert ( std::pair<int,int>(9,2));
 				origMap.insert ( std::pair<int,int>(10,6));
@@ -343,10 +343,12 @@ int     main() {
 				myIT++;
 				i++;
 			}
-
-			myMap.insert(std::pair<char, float>('3', 33.33));
-			myMap.insert(std::pair<char, float>('4', 44.44));
-			myMap.insert(std::pair<char, float>('*', 999999999.999999999));
+			
+			
+			myMap.insert(myMap.begin(), std::pair<char, float>('3', 33.33));
+			myMap.insert(myMap.begin(), std::pair<char, float>('4', 44.44));
+			myMap.insert(myMap.begin(), std::pair<char, float>('*', 999999999.999999999));
+			
 			myIT = myMap.begin();
 			i = 1;
 			std::cout << "\nmyMap size after inset with position = " << myMap.size() << "\n";
@@ -389,9 +391,9 @@ int     main() {
 				i++;
 			}
 
-			origMap.insert(std::pair<char, float>('3', 33.33));
-			origMap.insert(std::pair<char, float>('4', 44.44));
-			origMap.insert(std::pair<char, float>('*', 999999999.999999999));
+			origMap.insert(origMap.begin(), std::pair<char, float>('3', 33.33));
+			origMap.insert(origMap.begin(), std::pair<char, float>('4', 44.44));
+			origMap.insert(origMap.begin(), std::pair<char, float>('*', 999999999.999999999));
 			origIT = origMap.begin();
 			i = 1;
 			std::cout << "\nOrigMap size after inset with position = " << origMap.size() << "\n";
@@ -581,7 +583,7 @@ int     main() {
 			ft::map<char, std::string> myMap1;
 			ft::map<char, std::string> myMap2;
 
-			myMap1['*'] = "myMap";
+			myMap1['*'] = "myMap1";
 			myMap1['H'] = "HELLO";
 			myMap1['P'] = "PEER";
 
@@ -622,7 +624,7 @@ int     main() {
 			std::map<char, std::string> origMap1;
 			std::map<char, std::string> origMap2;
 
-			origMap1['*'] = "origMap";
+			origMap1['*'] = "origMap1";
 			origMap1['H'] = "HELLO";
 			origMap1['P'] = "PEER";
 
@@ -688,7 +690,7 @@ int     main() {
 			myMap['b'] = 200;
 			myMap['c'] = 300;
 
-			std::cout << "myMap contains:\n";
+			std::cout << "myMap key_comp:\n";
 
 			char highest = myMap.rbegin()->first;     // key value of last element
 
@@ -705,7 +707,7 @@ int     main() {
 			myMap['y'] = 2002;
 			myMap['z'] = 3003;
 
-			std::cout << "myMap contains:\n";
+			std::cout << "myMap value_comp:\n";
 
 			std::pair<char, int> myHighest = *myMap.rbegin(); // last element
 			it = myMap.begin();
@@ -727,7 +729,7 @@ int     main() {
 			origMap['b'] = 200;
 			origMap['c'] = 300;
 
-			std::cout << "origMap contains:\n";
+			std::cout << "origMap key_comp:\n";
 
 			char highest1 = origMap.rbegin()->first;     // key value of last element
 
@@ -744,7 +746,7 @@ int     main() {
 			origMap['y'] = 2002;
 			origMap['z'] = 3003;
 
-			std::cout << "origMap contains:\n";
+			std::cout << "origMap value_comp:\n";
 
 			std::pair<char, int> origHighest = *origMap.rbegin(); // last element
 

@@ -172,7 +172,201 @@
 			/************* Modifiers *************/
 
 
-			int balanceFactor(node* noda) {
+			std::pair<iterator, bool> insert (const value_type& val) {
+				size_t t = _size;
+				if (_size) {
+					_end->parent->right = nullptr;
+					_end->parent = nullptr;
+				}
+			    _root = Insert(_root, val.first, val.second);
+			    std::pair<iterator, bool> ret = std::make_pair(find(val.first), t != _size);
+				_endtmp = _begin =_root;
+				while (_endtmp->right) {
+					_endtmp = _endtmp->right;
+				}
+				_end->parent = _endtmp;
+				_endtmp->right = _end;
+
+				while (_begin->left)
+					_begin = _begin->left;
+				return (ret);
+			}
+
+			iterator insert (iterator position, const value_type& val) {
+				if (position.getp())
+					;
+				std::pair<iterator,bool> ret;
+				ret = insert(val);
+				return ret.first;
+			}
+
+			template<class InputIterator>
+			void insert(InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
+				while (first != last) {
+					insert(*first);
+					++first;
+				}
+			}
+
+			
+
+
+
+			void erase (iterator position) {
+				nodeptr del = position.getp();
+				if (!del)
+					return ;
+
+				_root = remove(_root, del->date.first);
+				_end = _begin =_root;
+				if (_end)
+					while (_end->right)
+						_end = _end->right;
+				if (_begin)
+					while (_begin->left)
+						_begin = _begin->left;
+			}
+
+			size_type erase(const key_type &k) {
+					erase(find(k));
+				return (1);
+			}
+
+			void erase (iterator first, iterator last, char (*)[sizeof(*first)] = NULL) {
+				while (first != last) {
+					iterator tmp = first;
+					tmp++;
+					erase(first);
+					first = tmp;
+				}
+			}
+
+			void swap(map &x) {
+				map tmp(x);
+				x = *this;
+				*this = tmp;
+			}
+
+
+			void clear() {
+				erase(begin(), end());
+			}
+
+
+			/************* Observers *************/
+
+			key_compare key_comp() const {
+				return (_comp);
+			}
+
+			value_compare value_comp() const {
+				return (_valueCompare);
+			}
+
+
+			/**************  Operations  ***************/
+
+
+			iterator find (const key_type& k) {
+				nodeptr _find = _root;
+				unsigned char i = _root->height;
+				while (i-- > 0) {
+					if (_find->date.first < k) {
+						if (!_find->right)
+							return (end());
+						_find = _find->right;
+					}
+					else if (_find->date.first > k) {
+						if (!_find->left)
+							return (end());
+						_find = _find->left;
+					}
+					else
+						return (iterator(_find));
+				}
+				return (iterator(_find));
+		    }
+
+		   const_iterator find (const key_type& k) const {
+			   nodeptr _find = _root;
+			   unsigned char i = _root->height;
+			   while (i-- > 0) {
+				   if (_find->date.first < k) {
+					   if (!_find->right)
+						   return (end());
+					   _find = _find->right;
+				   }
+				   else if (_find->date.first > k) {
+					   if (!_find->left)
+						   return (end());
+					   _find = _find->left;
+				   }
+				   else
+					   return (const_iterator(_find));
+			   }
+			   return (const_iterator(_find));
+			}
+
+
+			size_type count(const key_type &k) const{
+			    	const_iterator tmp = find(k);
+			    	if (tmp.getp() == _end || !tmp.getp())
+			    		return 0;
+			    	return 1;
+			}
+
+			    iterator lower_bound (const key_type& k) {
+			 	    iterator _find = find(k);
+			 	    if (_find.getp()->date.first == k)
+			 	    	return _find;
+				    return (iterator(_end));
+			    }
+
+			    const_iterator lower_bound (const key_type& k) const {
+				    const_iterator _find = find(k);
+
+				    if (_find.getp()->date.first == k)
+					    return _find;
+				    return (const_iterator(_end));
+			    }
+
+
+			    iterator upper_bound (const key_type& k) {
+				    iterator _find = find(k);
+				    if (_find.getp()->date.first == k) {
+					    _find++;
+				    	return _find;
+				    }
+				    else
+				    	return iterator(_end);
+
+			    }
+
+			    const_iterator upper_bound (const key_type& k) const {
+				    const_iterator _find = find(k);
+				    if (_find.getp()->date.first == k) {
+					    _find++;
+					    return _find;
+				    }
+				    else
+					    return const_iterator(_end);
+			    }
+
+			    std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			    	const_iterator low = lower_bound(k);
+				    const_iterator up = upper_bound(k);
+				    return (std::pair<const_iterator, const_iterator > (low, up));
+			    }
+
+			    std::pair<iterator,iterator> equal_range (const key_type& k) {
+				    iterator low = lower_bound(k);
+				    iterator up = upper_bound(k);
+				    return (std::pair<iterator , iterator> (low, up));
+			    }
+
+		private:
+
+		int balanceFactor(node* noda) {
 				unsigned char left = 0, right = 0;
 				if (noda->left)
 					left = noda->left->height;
@@ -272,43 +466,6 @@
 				return tmp;
 			}
 
-
-			std::pair<iterator, bool> insert (const value_type& val) {
-				size_t t = _size;
-				if (_size) {
-					_end->parent->right = nullptr;
-					_end->parent = nullptr;
-				}
-			    _root = Insert(_root, val.first, val.second);
-			    std::pair<iterator, bool> ret = std::make_pair(find(val.first), t != _size);
-				_endtmp = _begin =_root;
-				while (_endtmp->right) {
-					_endtmp = _endtmp->right;
-				}
-				_end->parent = _endtmp;
-				_endtmp->right = _end;
-
-				while (_begin->left)
-					_begin = _begin->left;
-				return (ret);
-			}
-
-			iterator insert (iterator position, const value_type& val) {
-				if (position.getp())
-					;
-				std::pair<iterator,bool> ret;
-				ret = insert(val);
-				return ret.first;
-			}
-
-			template<class InputIterator>
-			void insert(InputIterator first, InputIterator last, char (*)[sizeof(*first)] = NULL) {
-				while (first != last) {
-					insert(*first);
-					++first;
-				}
-			}
-
 			node* findmax(node* p) {
 				if (p->left)
 					return findmax(p->left);
@@ -359,164 +516,6 @@
 				}
 				return balance(del);
 			}
-
-
-
-			void erase (iterator position) {
-				nodeptr del = position.getp();
-				if (!del)
-					return ;
-
-				_root = remove(_root, del->date.first);
-				_end = _begin =_root;
-				if (_end)
-					while (_end->right)
-						_end = _end->right;
-				if (_begin)
-					while (_begin->left)
-						_begin = _begin->left;
-			}
-
-			size_type erase(const key_type &k) {
-					erase(find(k));
-				return (1);
-			}
-
-			void erase (iterator first, iterator last, char (*)[sizeof(*first)] = NULL) {
-				while (first != last) {
-					iterator tmp = first;
-					tmp++;
-					erase(first);
-					first = tmp;
-				}
-			}
-
-			void swap(map &x) {
-				map tmp(x);
-				x = *this;
-				*this = tmp;
-			}
-
-
-			void clear() {
-				erase(begin(), end());
-			}
-
-
-			/************* Observers *************/
-
-			key_compare key_comp() const {
-				return (_comp);
-			}
-
-			value_compare value_comp() const {
-				return (_valueCompare);
-			}
-
-
-			/**************  Operations  ***************/
-
-
-			    iterator find (const key_type& k) {
-					nodeptr _find = _root;
-					unsigned char i = _root->height;
-					while (i-- > 0) {
-						if (_find->date.first < k) {
-							if (!_find->right)
-								return (end());
-							_find = _find->right;
-						}
-						else if (_find->date.first > k) {
-							if (!_find->left)
-								return (end());
-							_find = _find->left;
-						}
-						else
-							return (iterator(_find));
-					}
-
-					return (iterator(_find));
-			    }
-
-		   const_iterator find (const key_type& k) const {
-			   nodeptr _find = _root;
-			   unsigned char i = _root->height;
-			   while (i-- > 0) {
-				   if (_find->date.first < k) {
-					   if (!_find->right)
-						   return (end());
-					   _find = _find->right;
-				   }
-				   else if (_find->date.first > k) {
-					   if (!_find->left)
-						   return (end());
-					   _find = _find->left;
-				   }
-				   else
-					   return (const_iterator(_find));
-			   }
-
-			   return (const_iterator(_find));
-			    }
-
-
-			size_type count(const key_type &k) const{
-			    	const_iterator tmp = find(k);
-			    	if (tmp.getp() == _end || !tmp.getp())
-			    		return 0;
-			    	return 1;
-			}
-
-			    iterator lower_bound (const key_type& k) {
-			 	    iterator _find = find(k);
-			 	    if (_find.getp()->date.first == k)
-			 	    	return _find;
-				    return (iterator(_end));
-			    }
-
-			    const_iterator lower_bound (const key_type& k) const {
-				    const_iterator _find = find(k);
-
-				    if (_find.getp()->date.first == k)
-					    return _find;
-				    return (const_iterator(_end));
-			    }
-
-
-			    iterator upper_bound (const key_type& k) {
-				    iterator _find = find(k);
-				    if (_find.getp()->date.first == k) {
-					    _find++;
-				    	return _find;
-				    }
-				    else
-				    	return iterator(_end);
-
-			    }
-
-			    const_iterator upper_bound (const key_type& k) const {
-				    const_iterator _find = find(k);
-				    if (_find.getp()->date.first == k) {
-					    _find++;
-					    return _find;
-				    }
-				    else
-					    return const_iterator(_end);
-			    }
-
-			    std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
-			    	const_iterator low = lower_bound(k);
-				    const_iterator up = upper_bound(k);
-				    return (std::pair<const_iterator, const_iterator > (low, up));
-			    }
-
-			    std::pair<iterator,iterator> equal_range (const key_type& k) {
-				    iterator low = lower_bound(k);
-				    iterator up = upper_bound(k);
-				    return (std::pair<iterator , iterator> (low, up));
-			    }
-
-		private:
 
 		};
 
