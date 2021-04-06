@@ -154,7 +154,7 @@ int     main() {
 				std::cout << "MyMap3 size = " << myMap3.size() << "\n";
 
 
-				std::cout << Y"\nConstruct copy\n"D;
+				std::cout << Y"\nOriginal construct copy\n"D;
 				origMap2.insert ( std::pair<int,int>(77,88) );
 				std::map<int,int> origMap3(origMap2);
 				origIT1 = origMap3.begin();
@@ -320,104 +320,104 @@ int     main() {
 			std::cout << "newOrigMap size = " << newOrigMap.size() << "\n";
 		}
 
-//
-//			/********* MODIFIERS  **************/
-//		{
-//
-//			std::cout << G "\nMODIFIERS\n" D;
-//			std::cout << G "Insert:\n" D;
-//			std::cout << Y "My insert:\n" D;
-//
-//
-//
-//			int i = 1;
-//			ft::map<char, float> myMap;
-//
-//			myMap.insert(std::pair<char, float>('a', 11.11));
-//			myMap.insert(std::pair<char, float>('b', 22.22));
-//			std::cout << "OrigMap size after insert pair = " << myMap.size() << "\n";
-//			ft::map<char, float>::iterator myIT = myMap.begin();
-//			i = 1;
-//			while (myIT != myMap.end()) {
-//				std::cout << i << " Element: key = '" << myIT->first << "' ";
-//				std::cout << "Value = " << myIT->second << "\n";
-//				myIT++;
-//				i++;
-//			}
-//
-//			myMap.insert(std::pair<char, float>('3', 33.33));
-//			myMap.insert(std::pair<char, float>('4', 44.44));
-//			myMap.insert(std::pair<char, float>('*', 999999999.999999999));
-//			myIT = myMap.begin();
-//			i = 1;
-//			std::cout << "\nOrigMap size after inset with position = " << myMap.size() << "\n";
-//			while (myIT != myMap.end()) {
-//				std::cout << i << " Element: key = '" << myIT->first << "' ";
-//				std::cout << "Value = " << myIT->second << "\n";
-//				myIT++;
-//				i++;
-//			}
-//
-//			ft::map<char, float> myMap2;
-//			myMap2.insert(std::pair<char, float>('A', -555.555));
-//			myIT = myMap.begin();
-//			myIT++;
-//
-//			myMap2.insert(myIT, myMap.end());
-//			myIT = myMap2.begin();
-//			i = 1;
-//			std::cout << "\nOrigMap2 size after inset with iterators = " << myMap2.size() << "\n";
-//			while (myIT != myMap2.end()) {
-//				std::cout << i << " Element: key = '" << myIT->first << "' ";
-//				std::cout << "Value = " << myIT->second << "\n";
-//				myIT++;
-//				i++;
-//			}
-//
-//			std::cout << Y "Original insert:\n" D;
-//
-//			std::map<char, float> origMap;
-//
-//			origMap.insert(std::pair<char, float>('a', 11.11));
-//			origMap.insert(std::pair<char, float>('b', 22.22));
-//			std::cout << "OrigMap size after insert pair = " << origMap.size() << "\n";
-//			std::map<char, float>::iterator origIT = origMap.begin();
-//			i = 1;
-//			while (origIT != origMap.end()) {
-//				std::cout << i << " Element: key = '" << origIT->first << "' ";
-//				std::cout << "Value = " << origIT->second << "\n";
-//				origIT++;
-//				i++;
-//			}
-//
-//			origMap.insert(std::pair<char, float>('3', 33.33));
-//			origMap.insert(std::pair<char, float>('4', 44.44));
-//			origMap.insert(std::pair<char, float>('*', 999999999.999999999));
-//			origIT = origMap.begin();
-//			i = 1;
-//			std::cout << "\nOrigMap size after inset with position = " << origMap.size() << "\n";
-//			while (origIT != origMap.end()) {
-//				std::cout << i << " Element: key = '" << origIT->first << "' ";
-//				std::cout << "Value = " << origIT->second << "\n";
-//				origIT++;
-//				i++;
-//			}
-//
-//			std::map<char, float> origMap2;
-//			origMap2.insert(std::pair<char, float>('A', -555.555));
-//			origIT = origMap.begin();
-//			origIT++;
-//
-//			origMap2.insert(origIT, origMap.end());
-//			origIT = origMap2.begin();
-//			i = 1;
-//			std::cout << "\nOrigMap2 size after inset with iterators = " << origMap2.size() << "\n";
-//			while (origIT != origMap2.end()) {
-//				std::cout << i << " Element: key = '" << origIT->first << "' ";
-//				std::cout << "Value = " << origIT->second << "\n";
-//				origIT++;
-//				i++;
-//			}
+
+			/********* MODIFIERS  **************/
+		{
+
+			std::cout << G "\nMODIFIERS\n" D;
+			std::cout << G "Insert:\n" D;
+			std::cout << Y "My insert:\n" D;
+
+
+			int i = 1;
+			ft::map<char, float> myMap;
+
+			myMap.insert(std::pair<char, float>('a', 11.11));
+			myMap.insert(std::pair<char, float>('b', 22.22));
+			std::cout << "myMap size after insert pair = " << myMap.size() << "\n";
+			ft::map<char, float>::iterator myIT = myMap.begin();
+			i = 1;
+			while (myIT != myMap.end()) {
+				std::cout << i << " Element: key = '" << myIT->first << "' ";
+				std::cout << "Value = " << myIT->second << "\n";
+				myIT++;
+				i++;
+			}
+
+			myMap.insert(std::pair<char, float>('3', 33.33));
+			myMap.insert(std::pair<char, float>('4', 44.44));
+			myMap.insert(std::pair<char, float>('*', 999999999.999999999));
+			myIT = myMap.begin();
+			i = 1;
+			std::cout << "\nmyMap size after inset with position = " << myMap.size() << "\n";
+			while (myIT != myMap.end()) {
+				std::cout << i << " Element: key = '" << myIT->first << "' ";
+				std::cout << "Value = " << myIT->second << "\n";
+				myIT++;
+				i++;
+			}
+
+			ft::map<char, float> myMap2;
+			myMap2.insert(std::pair<char, float>('A', -555.555));
+			myIT = myMap.begin();
+			myIT++;
+
+			myMap2.insert(myIT, myMap.end());
+			myIT = myMap2.begin();
+			i = 1;
+			std::cout << "\nmyMap2 size after inset with iterators = " << myMap2.size() << "\n";
+			while (myIT != myMap2.end()) {
+				std::cout << i << " Element: key = '" << myIT->first << "' ";
+				std::cout << "Value = " << myIT->second << "\n";
+				myIT++;
+				i++;
+			}
+
+			std::cout << Y "Original insert:\n" D;
+
+			std::map<char, float> origMap;
+
+			origMap.insert(std::pair<char, float>('a', 11.11));
+			origMap.insert(std::pair<char, float>('b', 22.22));
+			std::cout << "OrigMap size after insert pair = " << origMap.size() << "\n";
+			std::map<char, float>::iterator origIT = origMap.begin();
+			i = 1;
+			while (origIT != origMap.end()) {
+				std::cout << i << " Element: key = '" << origIT->first << "' ";
+				std::cout << "Value = " << origIT->second << "\n";
+				origIT++;
+				i++;
+			}
+
+			origMap.insert(std::pair<char, float>('3', 33.33));
+			origMap.insert(std::pair<char, float>('4', 44.44));
+			origMap.insert(std::pair<char, float>('*', 999999999.999999999));
+			origIT = origMap.begin();
+			i = 1;
+			std::cout << "\nOrigMap size after inset with position = " << origMap.size() << "\n";
+			while (origIT != origMap.end()) {
+				std::cout << i << " Element: key = '" << origIT->first << "' ";
+				std::cout << "Value = " << origIT->second << "\n";
+				origIT++;
+				i++;
+			}
+
+			std::map<char, float> origMap2;
+			origMap2.insert(std::pair<char, float>('A', -555.555));
+			origIT = origMap.begin();
+			origIT++;
+
+			origMap2.insert(origIT, origMap.end());
+			origIT = origMap2.begin();
+			i = 1;
+			std::cout << "\nOrigMap2 size after inset with iterators = " << origMap2.size() << "\n";
+			while (origIT != origMap2.end()) {
+				std::cout << i << " Element: key = '" << origIT->first << "' ";
+				std::cout << "Value = " << origIT->second << "\n";
+				origIT++;
+				i++;
+			}
+		}
 
 		{
 			/****** erase  posision ***/

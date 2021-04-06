@@ -28,7 +28,7 @@
 			typedef const T &const_reference;
 			typedef T *pointer;
 			typedef const T *const_pointer;
-
+			typedef typename allocator_type::template rebind<value_type>::other		alloc_rebind;
 			typedef mapIterator<key_type, mapped_type> iterator;
 			typedef reverseMapIterator<key_type, mapped_type> reverse_iterator;
 			typedef constmapIterator<key_type, mapped_type> const_iterator;
@@ -71,7 +71,6 @@
 				const allocator_type &alloc = allocator_type()) :
 			    _alloc(alloc), _comp(comp), _valueCompare(comp), _size(0), _root(nullptr), _begin(nullptr) , _end(nullptr) {
 				_end = new node();
-
 			}
 
 			template<class InputIterator>
@@ -367,6 +366,7 @@
 				nodeptr del = position.getp();
 				if (!del)
 					return ;
+
 				_root = remove(_root, del->date.first);
 				_end = _begin =_root;
 				if (_end)
@@ -384,12 +384,10 @@
 
 			void erase (iterator first, iterator last, char (*)[sizeof(*first)] = NULL) {
 				while (first != last) {
-//					erase(first++);
 					iterator tmp = first;
 					tmp++;
 					erase(first);
 					first = tmp;
-
 				}
 			}
 
@@ -408,7 +406,6 @@
 			/************* Observers *************/
 
 			key_compare key_comp() const {
-
 				return (_comp);
 			}
 

@@ -51,13 +51,13 @@ namespace ft {
 
 			node * next;
 			if (p) {
-
 				if (!p->right) {
 					next = p;
 					while (next->parent && next == next->parent->right)
 						next = next->parent;
 					next = next->parent;
-				} else {
+				}
+				else {
 					next = p->right;
 					while (next->left)
 						next = next->left;
