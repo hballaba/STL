@@ -49,6 +49,7 @@
 			nodeptr _begin;
 			nodeptr _tmp;
 			nodeptr _end;
+			nodeptr _endtmp;
 
 
 		public:
@@ -57,7 +58,7 @@
 			explicit map(const key_compare &comp = key_compare(),
 				const allocator_type &alloc = allocator_type()) :
 			    _size(0), _alloc(alloc), _root(nullptr), _comp(comp), _end(nullptr), _begin(nullptr) {
-
+				_end = new node();
 
 			}
 
@@ -65,6 +66,7 @@
 			map(InputIterator first, InputIterator last,
 			    const key_compare &comp = key_compare(),
 			    const allocator_type &alloc = allocator_type()) {
+				_end = new node();
 				while (first != last) {
 					insert(*first);
 					++first;
@@ -74,6 +76,7 @@
 			map(const map &x) {
 				this->_size = 0;
 				this->_root = nullptr;
+				_end = new node();
 				const_iterator st = x.begin();
 				const_iterator fin = x.end();
 				insert(st, fin);
@@ -81,6 +84,8 @@
 
 
 			~map() {
+				clear();
+				delete _end;
 
 			}
 
@@ -101,11 +106,11 @@
 
 
 			iterator end() {
-				return (iterator(_end->right));
+				return (iterator(_end));
 			}
 
 			const_iterator end() const{
-				return (const_iterator(_end->right));
+				return (const_iterator(_end));
 			}
 
 			const_iterator begin() const {
@@ -113,10 +118,10 @@
 			}
 
 			reverse_iterator rbegin() {
-				return (reverse_iterator(_end));
+				return (reverse_iterator(_end->parent));
 			}
 			const_reverse_iterator rbegin() const {
-				return (const_reverse_iterator(_begin));
+				return (const_reverse_iterator(_end->parent));
 			}
 
 			    reverse_iterator rend() {
@@ -155,7 +160,7 @@
 			/************* Modifiers *************/
 
 
-			int bfactor(node* noda) {     //find diff between branch
+			int balanceFactor(node* noda) {
 				unsigned char left = 0, right = 0;
 				if (noda->left)
 					left = noda->left->height;
@@ -175,14 +180,13 @@
 					noda->height = right + 1;
 			}
 
-			node* rotateright(node* root)
-			{
+			node* rotateright(node* root) {
 				node* par = root->parent;
 				node* left = root->left;
 				root->parent = left;
 				left->parent = par;
 				if (left->left)
-					left->left->parent = root;
+					left->left->parent = left;
 				root->left = left->right;
 				left->right = root;
 				getHight(root);
@@ -190,8 +194,7 @@
 				return left;
 			}
 
-			node* rotateleft(node* root)
-			{
+			node* rotateleft(node* root) {
 				node* par = root->parent;
 				node* right = root->right;
 				root->parent = right;
@@ -205,20 +208,20 @@
 				getHight(right);
 				return right;
 			}
-			node* balance(node* p)
-			{
+			node* balance(node* p) {
 				nodeptr tmp;
 				getHight(p);
-				if( bfactor(p)== 2 )
+				int b = balanceFactor(p);
+				if( b == 2 )
 				{
-					if( bfactor(p->right) < 0 )
+					if( balanceFactor(p->right) < 0 )
 						p->right = rotateright(p->right);
 					tmp = rotateleft(p);
 					return tmp;
 				}
-				if( bfactor(p)== -2 )
+				if( b == -2 )
 				{
-					if( bfactor(p->left) > 0  )
+					if( balanceFactor(p->left) > 0  )
 						p->left = rotateleft(p->left);
 					tmp = rotateright(p);
 					return tmp;
@@ -227,8 +230,7 @@
 			}
 
 
-			node* Insert(node* p, int k, mapped_type val) // подшаманить
-			{
+			node* Insert(node* p, int k, mapped_type val) {
 				if( _size == 0 ) {
 					_root = new node(k, val);
 					++_size;
@@ -239,7 +241,6 @@
 				}
 				if( !p ) {
 					_size++;
-
 					node* newNode = new node(k, val);
 					_tmp = newNode;
 					return newNode;
@@ -262,20 +263,25 @@
 
 			std::pair<iterator, bool> insert (const value_type& val) {
 				size_t t = _size;
+				if (_size) {
+					_end->parent->right = nullptr;
+					_end->parent = nullptr;
+				}
 			    _root = Insert(_root, val.first, val.second);
-				node *tmp = _root;
 			    std::pair<iterator, bool> ret = std::make_pair(find(val.first), t != _size);
-				_end = _begin =_root;
-				while (_end->right)
-					_end = _end->right;
-//				_begin = _root;
+				_endtmp = _begin =_root;
+				while (_endtmp->right) {
+					_endtmp = _endtmp->right;
+				}
+				_end->parent = _endtmp;
+				_endtmp->right = _end;
+
 				while (_begin->left)
 					_begin = _begin->left;
 				return (ret);
-					// исправить возвращаемое значение
 			}
 
-			iterator insert (iterator position, const value_type& val){
+			iterator insert (iterator position, const value_type& val) {
 				std::pair<iterator,bool> ret;
 				ret = insert(val);
 				return ret.first;
@@ -288,27 +294,14 @@
 					++first;
 				}
 			}
-			void parent_nullptr(nodeptr del, nodeptr descendent) {
-				if (del->parent) {
-					if (del->parent->left == del)
-						del->parent->left = descendent;
-					if (del->parent->right == del)
-						del->parent->right = descendent;
-				}
-			}
 
-			node* findmax(node* p)
-			{
+			node* findmax(node* p) {
 				if (p->left)
 					return findmax(p->left);
 				return p;
-
-
-//				return p->left?findmax(p->left):p;
 			}
 
-			node* removemin(node* p)
-			{
+			node* removemin(node* p) {
 				if(!p->left)
 					return p->right  ;
 				p->left = removemin(p->left);
@@ -316,8 +309,7 @@
 				return balance(p);
 			}
 
-			node* remove(node* del, key_type k)
-			{
+			node* remove(node* del, key_type k)	{
 				if( !del )
 					return nullptr;
 				if( k < del->date.first) {
@@ -460,54 +452,67 @@
 
 
 			size_type count(const key_type &k) const{
-			    	iterator tmp = find(k);
-			    	if (!tmp)
+			    	const_iterator tmp = find(k);
+			    	if (tmp.getp() == _end || !tmp.getp())
 			    		return 0;
 			    	return 1;
+			}
+
+			    iterator lower_bound (const key_type& k) {
+			 	    iterator _find = find(k);
+			 	    if (_find.getp()->date.first == k)
+			 	    	return _find;
+				    return (iterator(_end));
 			    }
 
-			//    iterator lower_bound (const key_type& k);
+			    const_iterator lower_bound (const key_type& k) const {
+				    const_iterator _find = find(k);
 
-			//    const_iterator lower_bound (const key_type& k) const;
-			//
-			//    iterator upper_bound (const key_type& k);
+				    if (_find.getp()->date.first == k)
+					    return _find;
+				    return (const_iterator(_end));
+			    }
 
-			//    const_iterator upper_bound (const key_type& k) const;
-			//
-			//    pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
 
-			//    pair<iterator,iterator>             equal_range (const key_type& k);
+			    iterator upper_bound (const key_type& k) {
+				    iterator _find = find(k);
+				    if (_find.getp()->date.first == k) {
+					    _find++;
+				    	return _find;
+				    }
+				    else
+				    	return iterator(_end);
+
+			    }
+
+			    const_iterator upper_bound (const key_type& k) const {
+				    const_iterator _find = find(k);
+				    if (_find.getp()->date.first == k) {
+					    _find++;
+					    return _find;
+				    }
+				    else
+					    return const_iterator(_end);
+			    }
+
+			    std::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			    	const_iterator low = lower_bound(k);
+				    const_iterator up = upper_bound(k);
+				    return (std::pair<const_iterator, const_iterator > (low, up));
+			    }
+
+			    std::pair<iterator,iterator> equal_range (const key_type& k) {
+				    iterator low = lower_bound(k);
+				    iterator up = upper_bound(k);
+				    return (std::pair<iterator , iterator> (low, up));
+			    }
 
 		private:
-
-
-
 
 		};
 
 	}
 
 
-//			node * Insert(key_type x, mapped_type val) {
-//				Node<key_type, mapped_type>** cur = &_root;
-//				while (*cur) {
-//					Node<key_type, mapped_type>& pode = **cur;
-//					if (x < pode.date.first) {
-//						pode.height++;
-//						cur = &pode.left;
-//					} else if (x > pode.date.first) {
-//						pode.height++;
-//						cur = &pode.right;
-//					} else {
-//						return *cur;
-//					}
-//				}
-//				*cur = new Node<key_type, mapped_type>(x, val);
-//				_size++;
-//				if (_root->left && _root->right)
-//					_root->height =  (_root->left->height > _root->right->height) ?_root->left->height + 1 : _root->right->height + 1;
-//
-//				return balance(*cur);
-//			}
 
 #endif /*MAP_HPP*/
