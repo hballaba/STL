@@ -105,11 +105,11 @@ namespace ft {
 
 
         void push_back(value_type const &element) {
-            if (_capacity > _size) {  //уже выделена памятm
+            if (_capacity > _size) {
                 _alloc.construct(_array + _size, element);
                 _size++;
-            } else if (_capacity > 0) {  // надо домалочить
-                value_type *tmp;// = _array;
+            } else if (_capacity > 0) {
+                value_type *tmp;
                 tmp = _alloc.allocate(_capacity * 2);
 
                 _alloc.construct(tmp + (_size), element);
@@ -122,7 +122,7 @@ namespace ft {
                 _capacity = _capacity * 2;
                 _array = tmp;
                 _size++;
-            } else {            // новый вектор
+            } else {
                 this->_array = this->_alloc.allocate(1);
                 this->_alloc.construct(this->_array, element);
                 this->_capacity++;
