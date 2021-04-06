@@ -51,6 +51,30 @@ int     main() {
         {
             std::cout << Y"\nMy member function\n"D;
 
+            std::queue<std::string> myQueue;          
+            myQueue.push("Hello");
+            myQueue.push("World");
+            myQueue.push("!!!");
+            std::cout << "size of myQueue: " <<  myQueue.size() << '\n';
+            while(!myQueue.empty()) {
+                std::cout << myQueue.front() << " ";
+                myQueue.pop();
+            }
+            std::cout << "\n";
+            std::cout << "size of myQueue: " <<  myQueue.size() << '\n';
+
+            myQueue.push("Aer");
+            myQueue.push("Terra");
+            myQueue.push("Ignis");
+            myQueue.push("Aqua");
+            std::cout << "size of myQueue: " <<  myQueue.size() << '\n';
+            while(!myQueue.empty()) {
+                std::cout << myQueue.back() << " ";
+                myQueue.pop();
+            }
+            std::cout << "\n";
+            std::cout << "size of myQueue: " <<  myQueue.size() << '\n';
+
 
 
             std::cout << Y"Original member function\n"D;
